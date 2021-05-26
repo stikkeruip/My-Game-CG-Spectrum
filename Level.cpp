@@ -6,10 +6,11 @@ constexpr char kPlayerSymbol = '@';
 
 vector<LevelItem> Level::itemTargets;
 	
-Level::Level(string levelName) : level(loadLevel(levelName))
+Level::Level(string levelName)
 {
 	height = 26;
 	width = 22;
+	level = loadLevel(levelName);
 	loadItems(levelName);
 
 	for (int i = 0; i < (int)Direction::Number; i++)
@@ -168,17 +169,7 @@ void Level::loadItems(string levelName)
 
 	while (fname >> temp)
 	{
-		if (temp == "HEIGHT")
-		{
-			fname >> temp;
-			height = stoi(temp);
-		}
-		else if (temp == "WIDTH")
-		{
-			fname >> temp;
-			width = stoi(temp);
-		}
-		else if (temp == "PORTAL")
+		if (temp == "PORTAL")
 		{
 			fname >> temp;
 			x = stoi(temp);
@@ -250,13 +241,33 @@ char* Level::loadLevel(string levelName)
 	string temp;
 	string txtLevel;
 
-	for (int i = 0; i < height; i++)
+	while (fname >> temp)
 	{
-		std::getline(fname, temp);
-		txtLevel += temp;
-	}
-	char* levelData = new char[txtLevel.size() + 2];
-	strcpy_s(levelData, txtLevel.size() + 1, &txtLevel[0]);
+		if (temp == "HEIGHT")
+		{
+			fname >> temp;
+			height = stoi(temp);
+		}
+		else if (temp == "WIDTH")
+		{
+			fname >> temp;
+			width = stoi(temp);
+		}
+		else if (temp == "LEVEL")
+		{
+			getline(fname, temp);
 
-	return levelData;
+			for (int i = 0; i < height; i++)
+			{
+				std::getline(fname, temp);
+				txtLevel += temp;
+			}
+			char* levelData = new char[txtLevel.size() + 2];
+			strcpy_s(levelData, txtLevel.size() + 1, &txtLevel[0]);
+
+			return levelData;
+		}
+	}
+
+	
 }
