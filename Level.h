@@ -29,7 +29,7 @@ class Level
 		Level* levelAtDirections[(int)Direction::Number];
 		Passway* passwayAtDirections[(int)Direction::Number];
 
-		static vector<LevelItem> itemTargets;
+		static vector<LevelItem*> itemTargets;
 	public:
 		Level(string levelName);
 

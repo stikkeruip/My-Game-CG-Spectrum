@@ -4,7 +4,7 @@
 
 constexpr char kPlayerSymbol = '@';
 
-vector<LevelItem> Level::itemTargets;
+vector<LevelItem*> Level::itemTargets;
 	
 Level::Level(string levelName)
 {
@@ -115,31 +115,11 @@ void Level::DrawLevel(int playerX, int playerY)
 
 void Level::setTargets()
 {
-	for (auto item : levelItems)
-	{
-		Button* buttonPtr = dynamic_cast<Button*>(item);
-		Gate* gatePtr = dynamic_cast<Gate*>(item);
-		Portal* portalPtr = dynamic_cast<Portal*>(item);
-
-		if (buttonPtr)
-		{
-			itemTargets.push_back(*buttonPtr);
-		}
-		else if (portalPtr)
-		{
-			itemTargets.push_back(*portalPtr);
-		}
-		else if (gatePtr)
-		{
-			itemTargets.push_back(*gatePtr);
-		}
-	}
-
 	for (size_t i = 0; i < itemTargets.size(); i++)
 	{
-		Button* buttonPtr = dynamic_cast<Button*>(&itemTargets[i]);
-		Gate* gatePtr = dynamic_cast<Gate*>(&itemTargets[i]);
-		Portal* portalPtr = dynamic_cast<Portal*>(&itemTargets[i]);
+		Button* buttonPtr = dynamic_cast<Button*>(itemTargets[i]);
+		Gate* gatePtr = dynamic_cast<Gate*>(itemTargets[i]);
+		Portal* portalPtr = dynamic_cast<Portal*>(itemTargets[i]);
 
 		if (buttonPtr && gatePtr)
 		{
@@ -149,10 +129,16 @@ void Level::setTargets()
 		{
 			Portal* portal_0 = portalPtr;
 			Portal* portal_1 = nullptr;
+
 			for (size_t y = i + 1; y < itemTargets.size(); y++)
 			{
-				Portal* portalPtr = dynamic_cast<Portal*>(&itemTargets[y]);
-				if (portalPtr)
+				Portal* portalPtr = dynamic_cast<Portal*>(itemTargets[y]);
+				if (portal_0 && portal_1)
+				{
+					i = y - 1;
+					break;
+				}
+				else if(portalPtr)
 					portal_1 = portalPtr;
 			}
 			portal_0->SetTarget(portal_1);
@@ -167,7 +153,7 @@ void Level::loadItems(string levelName)
 	int x;
 	int y;
 
-	while (fname >> temp)
+	while (fname >> temp && temp != "LEVEL")
 	{
 		if (temp == "PORTAL")
 		{
@@ -179,6 +165,7 @@ void Level::loadItems(string levelName)
 
 			levelItems[GetIndexFromCoordinates(x, y)] = new Portal(x, y);
 			level[GetIndexFromCoordinates(x, y)] = 'O';
+			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "BUTTON")
 		{
@@ -190,6 +177,7 @@ void Level::loadItems(string levelName)
 
 			levelItems[GetIndexFromCoordinates(x, y)] = new Button(x, y);
 			level[GetIndexFromCoordinates(x, y)] = 'B';
+			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "BDOOR")
 		{
@@ -201,6 +189,7 @@ void Level::loadItems(string levelName)
 
 			levelItems[GetIndexFromCoordinates(x, y)] = new Gate(x, y);
 			level[GetIndexFromCoordinates(x, y)] = ']';
+			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "KDOOR")
 		{
@@ -233,6 +222,7 @@ void Level::loadItems(string levelName)
 			level[GetIndexFromCoordinates(x, y)] = 'X';
 		}
 	}
+	setTargets();
 }
 
 char* Level::loadLevel(string levelName)
