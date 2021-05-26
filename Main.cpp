@@ -18,6 +18,10 @@ using namespace std;
 
 int main()
 {
+	//I'm going to edit from my side
+	//So you will get a confliction
+	//And I want you to resolve it by keeping both changes from me and you
+	
 	int width = 0;
 	int height = 0;
 
