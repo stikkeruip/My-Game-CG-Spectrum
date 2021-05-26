@@ -18,6 +18,9 @@ using namespace std;
 
 int main()
 {
+	
+cout << "Hello World";
+
 	int width = 0;
 	int height = 0;
 
