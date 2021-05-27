@@ -17,13 +17,7 @@ public:
 		x = -1;
 		y = -1;
 	}
-	LevelItem(int _x, int _y) : x(_x), y(_y)
-	{
-		displayCharacter = '0';
-		pickable = false;
-		walkable = false;
-	}
-	LevelItem(char c, int _x, int _y) : displayCharacter(c), x(_x), y(_y)
+	LevelItem(int _x, int _y) : displayCharacter('0'), x(_x), y(_y)
 	{
 		pickable = false;
 		walkable = false;

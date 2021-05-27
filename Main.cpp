@@ -16,6 +16,8 @@
 
 using namespace std;
 
+void levelSetup(string txt, vector<Level>& allLevels);
+
 int main()
 {
 	int width = 0;
@@ -41,17 +43,10 @@ int main()
 	Level bot("bot.txt");
 	allLevels.push_back(bot);
 
+	levelSetup("lvlsetup.txt", allLevels);
+
+	Level::setTargets();
 	Player player;
-
-	allLevels[0].setLevelAtDirection(&allLevels[1], Direction::Top);
-	allLevels[0].setLevelAtDirection(&allLevels[2], Direction::Left);
-	allLevels[0].setLevelAtDirection(&allLevels[3], Direction::Right);
-	allLevels[0].setLevelAtDirection(&allLevels[4], Direction::Bot);
-
-	allLevels[1].setLevelAtDirection(&allLevels[0], Direction::Bot);
-	allLevels[2].setLevelAtDirection(&allLevels[0], Direction::Right);
-	allLevels[3].setLevelAtDirection(&allLevels[0], Direction::Left);
-	allLevels[4].setLevelAtDirection(&allLevels[0], Direction::Top);
 
 	levelPtr = &allLevels[0];
 	player.setCurrentRoom(levelPtr);
@@ -81,3 +76,97 @@ int main()
 	cout << "gg ez" << endl;
 }
 
+void levelSetup(string txt, vector<Level>& allLevels)
+{
+	ifstream fname(txt);
+	string temp;
+
+	while (fname >> temp)
+	{
+		int pos;
+		int dir;
+		int count;
+
+
+		if (temp == "MIDDLE")
+		{
+			fname >> temp;
+			count = stoi(temp);
+			for (int i = 0; i < count; i++)
+			{
+				fname >> temp;
+				pos = stoi(temp);
+
+				fname >> temp;
+				dir = stoi(temp);
+
+				allLevels[0].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
+			}
+			getline(fname, temp);
+		}
+		else if (temp == "TOP")
+		{
+			fname >> temp;
+			count = stoi(temp);
+			for (int i = 0; i < count; i++)
+			{
+				fname >> temp;
+				pos = stoi(temp);
+
+				fname >> temp;
+				dir = stoi(temp);
+
+				allLevels[1].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
+			}
+			getline(fname, temp);
+		}
+		else if (temp == "LEFT")
+		{
+			fname >> temp;
+			count = stoi(temp);
+			for (int i = 0; i < count; i++)
+			{
+				fname >> temp;
+				pos = stoi(temp);
+
+				fname >> temp;
+				dir = stoi(temp);
+
+				allLevels[2].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
+			}
+			getline(fname, temp);
+		}
+		else if (temp == "RIGHT")
+		{
+			fname >> temp;
+			count = stoi(temp);
+			for (int i = 0; i < count; i++)
+			{
+				fname >> temp;
+				pos = stoi(temp);
+
+				fname >> temp;
+				dir = stoi(temp);
+
+				allLevels[3].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
+			}
+			getline(fname, temp);
+		}
+		else if (temp == "BOT")
+		{
+			fname >> temp;
+			count = stoi(temp);
+			for (int i = 0; i < count; i++)
+			{
+				fname >> temp;
+				pos = stoi(temp);
+
+				fname >> temp;
+				dir = stoi(temp);
+
+				allLevels[4].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
+			}
+			getline(fname, temp);
+		}
+	}
+}

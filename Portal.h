@@ -5,10 +5,10 @@ class Portal :
 {
 protected:
 	Portal* targetPortal;
-
 public:
 	Portal(int _x, int _y) : LevelItem(_x, _y)
 	{
+		displayCharacter = 'O';
 		pickable = false;
 		walkable = true;
 		targetPortal = nullptr;

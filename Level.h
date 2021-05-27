@@ -42,7 +42,7 @@ class Level
 
 		void setContentAt(int index, char content) { level[index] = content; }
 
-		void setTargets();
+		static void setTargets();
 
 		void clearItemAt(int index);
 

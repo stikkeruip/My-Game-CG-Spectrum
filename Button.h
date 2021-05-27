@@ -12,6 +12,7 @@ protected:
 public:
 	Button(int _x, int _y) : LevelItem(_x, _y)
 	{
+		displayCharacter = 'B';
 		walkable = true;
 		pickable = false;
 	}

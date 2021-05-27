@@ -9,6 +9,7 @@ protected:
 public:
 	Gate(int _x, int _y) : LevelItem(_x, _y)
 	{
+		displayCharacter = ']';
 		walkable = false;
 		pickable = false;
 	}
