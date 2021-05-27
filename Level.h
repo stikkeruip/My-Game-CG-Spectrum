@@ -24,6 +24,7 @@ class Level
 	private:
 		int width;
 		int height;
+		string levelName;
 
 		void InitLevelItems();
 		Level* levelAtDirections[(int)Direction::Number];
