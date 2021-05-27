@@ -6,12 +6,12 @@ constexpr char kPlayerSymbol = '@';
 
 vector<LevelItem*> Level::itemTargets;
 	
-Level::Level(string levelName)
+Level::Level(string _levelName):levelName(_levelName)
 {
 	height = 26;
 	width = 22;
-	level = loadLevel(levelName);
-	loadItems(levelName);
+	level = loadLevel(_levelName);
+	
 
 	for (int i = 0; i < (int)Direction::Number; i++)
 	{
@@ -19,6 +19,7 @@ Level::Level(string levelName)
 	}
 
 	InitLevelItems();
+	loadItems(_levelName);
 }
 
 void Level::setLevelAtDirection(Level* level, Direction direction)
@@ -141,7 +142,12 @@ void Level::setTargets()
 				else if(portalPtr)
 					portal_1 = portalPtr;
 			}
-			portal_0->SetTarget(portal_1);
+
+			if (portal_0 && portal_1)
+			{
+				portal_0->SetTarget(portal_1);
+				portal_1->SetTarget(portal_0);
+			}
 		}
 	}
 }
