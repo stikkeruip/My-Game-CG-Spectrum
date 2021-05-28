@@ -82,6 +82,7 @@ void levelSetup(string txt, vector<Level>& allLevels)
 {
 	ifstream fname(txt);
 	string temp;
+	int lineIndex = 0;
 
 	while (fname >> temp)
 	{
@@ -89,86 +90,20 @@ void levelSetup(string txt, vector<Level>& allLevels)
 		int dir;
 		int count;
 
-
-		if (temp == "MIDDLE")
+		fname >> temp;
+		count = stoi(temp);
+		for (int i = 0; i < count; i++)
 		{
 			fname >> temp;
-			count = stoi(temp);
-			for (int i = 0; i < count; i++)
-			{
-				fname >> temp;
-				pos = stoi(temp);
+			pos = stoi(temp);
 
-				fname >> temp;
-				dir = stoi(temp);
-
-				allLevels[0].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
-			}
-			getline(fname, temp);
-		}
-		else if (temp == "TOP")
-		{
 			fname >> temp;
-			count = stoi(temp);
-			for (int i = 0; i < count; i++)
-			{
-				fname >> temp;
-				pos = stoi(temp);
+			dir = stoi(temp);
 
-				fname >> temp;
-				dir = stoi(temp);
-
-				allLevels[1].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
-			}
-			getline(fname, temp);
+			allLevels[lineIndex].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
 		}
-		else if (temp == "LEFT")
-		{
-			fname >> temp;
-			count = stoi(temp);
-			for (int i = 0; i < count; i++)
-			{
-				fname >> temp;
-				pos = stoi(temp);
+		getline(fname, temp);
 
-				fname >> temp;
-				dir = stoi(temp);
-
-				allLevels[2].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
-			}
-			getline(fname, temp);
-		}
-		else if (temp == "RIGHT")
-		{
-			fname >> temp;
-			count = stoi(temp);
-			for (int i = 0; i < count; i++)
-			{
-				fname >> temp;
-				pos = stoi(temp);
-
-				fname >> temp;
-				dir = stoi(temp);
-
-				allLevels[3].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
-			}
-			getline(fname, temp);
-		}
-		else if (temp == "BOT")
-		{
-			fname >> temp;
-			count = stoi(temp);
-			for (int i = 0; i < count; i++)
-			{
-				fname >> temp;
-				pos = stoi(temp);
-
-				fname >> temp;
-				dir = stoi(temp);
-
-				allLevels[4].setLevelAtDirection(&allLevels[pos], static_cast<Direction>(dir));
-			}
-			getline(fname, temp);
-		}
+		lineIndex++;
 	}
 }
