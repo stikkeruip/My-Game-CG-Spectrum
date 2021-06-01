@@ -24,7 +24,7 @@ int main()
 	int height = 0;
 
 	vector<Level> allLevels;
-	Level* levelPtr;
+	Level* levelPtr = nullptr;
 
 	//Is there a way to read all txt files in destination?
 
