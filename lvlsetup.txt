@@ -1,5 +1,5 @@
-MIDDLE 4 1 0 2 3 3 1 4 2
-TOP 1 0 2
-LEFT 1 0 1
-RIGHT 1 0 3
-BOT 1 0 0
+middle 4 1 0 2 3 3 1 4 2
+top 1 0 2
+left 1 0 1
+right 1 0 3
+bot 1 0 0
