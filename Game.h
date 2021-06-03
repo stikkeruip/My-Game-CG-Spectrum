@@ -2,12 +2,14 @@
 
 #include "Player.h"
 #include "Level.h"
+#include "Entity.h"
 
 class Game
 {
 protected:
 	Player& player;
 	Level* level;
+	Entity* entity;
 	bool gameOver;
 
 public:

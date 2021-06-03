@@ -10,7 +10,13 @@ class Weapon :
 		int damage;
 
 	public:
-		Weapon(char c);
+		Weapon(int _x, int _y) :LevelItem(_x, _y)
+		{
+			displayCharacter = 'W';
+			walkable = true;
+			pickable = true;
+			damage = 10;
+		}
 
 		//getters
 		int getDamage() { return damage; };

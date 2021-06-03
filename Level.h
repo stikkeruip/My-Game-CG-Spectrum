@@ -13,6 +13,8 @@
 #include "Button.h"
 #include "Gate.h"
 #include "Weapon.h"
+#include "Entity.h"
+#include "BasicEnemy.h"
 
 using namespace std;
 
@@ -35,6 +37,7 @@ class Level
 		Level(string levelName);
 
 		char* level;
+		Entity* levelEntities[kLevelWidth * kLevelHeight];
 		LevelItem* levelItems[kLevelWidth * kLevelHeight]; //levelItems is an array of pointers (each of them points to a LevelItem)
 		
 		//setters
@@ -58,6 +61,8 @@ class Level
 
 		LevelItem* getItemAt (int index) { return levelItems[index]; }
 		LevelItem* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
+		Entity* getEntityAt(int index) { return levelEntities[index]; }
+		Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
 
 		//other functions
 		bool hasLevelAtDirection(Direction direction) { return levelAtDirections[(int)direction] != nullptr; }

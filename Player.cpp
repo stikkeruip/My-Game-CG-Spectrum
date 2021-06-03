@@ -35,7 +35,7 @@ void Player::setWeapon(Weapon* w)
 	weapon = w;
 }
 
-void GetPositionAtDirection(Direction direction, int& x, int& y)
+void Player::GetPositionAtDirection(Direction direction, int& x, int& y)
 {
 	switch (direction)
 	{
@@ -60,8 +60,7 @@ int Player::attack(Direction direction)
 	int y = playerY;
 
 	GetPositionAtDirection(direction, x, y);
-	std::cout << x << " " << y << std::endl;
-	return GetIndexFromCoordinates(x, y, 22);
+	return currentRoom->GetIndexFromCoordinates(x, y);
 }
 
 int Player::hit()

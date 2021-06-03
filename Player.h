@@ -11,6 +11,7 @@
 
 class Level;
 class Weapon;
+class Entity;
 
 enum class Direction
 {
@@ -39,6 +40,7 @@ class Player
 		bool hasAttacked;
 
 		Weapon* weapon;
+		Entity* entity;
 
 	public:
 		Player();
@@ -67,8 +69,6 @@ class Player
 		//getters
 		Level* getCurrentRoom() { return currentRoom; };
 
-		int GetIndexFromCoordinates(int x, int y, int width) { return x + y * width; };
-
 		Direction getDirection() { return direction; };
 
 		bool getEnteredPassway() { return enteredPassway; };
@@ -84,6 +84,8 @@ class Player
 		int getPlayerY() { return playerY; };
 
 		bool getPlayerHasKey() { return playerHasKey; }
+
+		void GetPositionAtDirection(Direction direction, int& x, int& y);
 
 		int attack(Direction direction);
 

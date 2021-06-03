@@ -59,6 +59,7 @@ void Level::clearItemAt(int index)
 {
 	level[index] = ' ';
 	levelItems[index] = nullptr;
+	levelEntities[index] = nullptr;
 }
 
 void Level::InitLevelItems()
@@ -108,6 +109,10 @@ void Level::DrawLevel(int playerX, int playerY)
 			else if (levelItems[index] != nullptr)
 			{
 				cout << levelItems[index]->GetDisplayCharacter();
+			}
+			else if (levelEntities[index] != nullptr)
+			{
+				cout << levelEntities[index]->GetDisplayCharacter();
 			}
 			else
 			{
@@ -214,6 +219,28 @@ void Level::loadItems(string levelName)
 			levelItems[GetIndexFromCoordinates(x, y)] = new Portal(x, y);
 			level[GetIndexFromCoordinates(x, y)] = levelItems[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
 			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
+		}
+		else if (temp == "ENEMY")
+		{
+			fname >> temp;
+			x = stoi(temp);
+
+			fname >> temp;
+			y = stoi(temp);
+
+			levelEntities[GetIndexFromCoordinates(x, y)] = new BasicEnemy(x, y);
+			level[GetIndexFromCoordinates(x, y)] = levelEntities[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
+		}
+		else if (temp == "WEAPON")
+		{
+			fname >> temp;
+			x = stoi(temp);
+
+			fname >> temp;
+			y = stoi(temp);
+
+			levelItems[GetIndexFromCoordinates(x, y)] = new Weapon(x, y);
+			level[GetIndexFromCoordinates(x, y)] = levelItems[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
 		}
 		else if (temp == "BUTTON")
 		{

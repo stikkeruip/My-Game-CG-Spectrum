@@ -25,8 +25,8 @@ public:
 	virtual char GetDisplayCharacter() { return displayCharacter; }
 	virtual bool IsPickable() { return pickable; }
 	virtual bool IsWalkable() { return walkable; }
-	int getX() { return x; }
-	int getY() { return y; }
+	virtual int getX() { return x; }
+	virtual int getY() { return y; }
 	virtual void InteractWith( Player* player ) {}
 };
 
