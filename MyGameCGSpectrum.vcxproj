@@ -34,6 +34,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gate.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelItem.h" />
     <ClInclude Include="Passway.h" />

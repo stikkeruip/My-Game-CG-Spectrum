@@ -13,8 +13,10 @@
 #include "Portal.h"
 #include "Button.h"
 #include "Gate.h"
+#include "json.hpp"
 
 using namespace std;
+using namespace nlohmann;
 
 void levelSetup(string txt, vector<Level>& allLevels);
 
@@ -29,6 +31,20 @@ int main()
 	Level* levelPtr = nullptr;
 
 	//Is there a way to read all txt files in destination?
+
+	// read a JSON file
+	std::ifstream i("lvlsetup.json");
+	json jsonLevels;
+	i >> jsonLevels;
+	for (auto& level : jsonLevels["levels"]) {
+		cout << "Level Name:" << level["name"] << ", Connection Number:" << level["connection_number"] << endl;
+		for (auto& connection : level["connections"])
+		{
+			cout << "-- Connect To:" << connection["target"] << ", At Direction:" << connection["direction"] << endl;
+		}
+	}
+
+	return 0;
 
 	Level middle("middle.txt");
 	allLevels.push_back(middle);
