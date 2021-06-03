@@ -1,8 +1,8 @@
 HEIGHT 26
 WIDTH 22
-PORTAL 11 6
-PORTAL 18 16
-BUTTON 20 18
+PORTAL 1 11 6
+PORTAL 1 18 16
+BUTTON 1 20 18
 LEVEL
 +--------------------+
 |                    |

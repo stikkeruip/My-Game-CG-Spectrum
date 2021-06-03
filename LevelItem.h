@@ -9,6 +9,7 @@ protected:
 	bool pickable;
 	int x;
 	int y;
+	int id = 0;
 public:
 	LevelItem(char c) : displayCharacter(c)
 	{ 
@@ -28,5 +29,7 @@ public:
 	virtual int getX() { return x; }
 	virtual int getY() { return y; }
 	virtual void InteractWith( Player* player ) {}
+	virtual int getID() { return id; };
+	virtual void setID(int x) { id = x; };
 };
 

@@ -1,7 +1,7 @@
 HEIGHT 26
 WIDTH 22
 KEY 1 8
-BDOOR 4 8
+BDOOR 1 4 8
 LEVEL
 +--------------------+
 |                    |
