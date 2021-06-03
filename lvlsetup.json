@@ -1,0 +1,71 @@
+{
+  "levels": [
+    {
+      "name": "middle",
+      "index": 0,
+      "connection_number": 4,
+      "connections": [
+        {
+          "direction": 0,
+          "target": 1
+        },
+        {
+          "direction": 1,
+          "target": 3
+        },
+        {
+          "direction": 2,
+          "target": 4
+        },
+        {
+          "direction": 3,
+          "target": 2
+        }
+      ]
+    },
+    {
+      "name": "top",
+      "index": 1,
+      "connection_number": 1,
+      "connections": [
+        {
+          "direction": 3,
+          "target": 0
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "index": 2,
+      "connection_number": 1,
+      "connections": [
+        {
+          "direction": 1,
+          "target": 0
+        }
+      ]
+    },
+    {
+      "name": "right",
+      "index": 3,
+      "connection_number": 1,
+      "connections": [
+        {
+          "direction": 3,
+          "target": 0
+        }
+      ]
+    },
+    {
+      "name": "bot",
+      "index": 3,
+      "connection_number": 1,
+      "connections": [
+        {
+          "direction": 0,
+          "target": 0
+        }
+      ]
+    }
+  ]
+}
