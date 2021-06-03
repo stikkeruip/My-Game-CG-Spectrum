@@ -29,7 +29,7 @@
       "connection_number": 1,
       "connections": [
         {
-          "direction": 3,
+          "direction": 2,
           "target": 0
         }
       ]
@@ -58,7 +58,7 @@
     },
     {
       "name": "bot",
-      "index": 3,
+      "index": 4,
       "connection_number": 1,
       "connections": [
         {
