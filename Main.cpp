@@ -19,9 +19,14 @@
 using namespace std;
 using namespace nlohmann;
 
-void levelSetup(vector<Level*> &allLevels);
-void gameLoop(Game game, Player player, Level* levelPtr);
+void levelSetup(vector<Level*>& allLevels);
+void gameLoop();
 void moveEntities();
+
+vector<Level*> allLevels;
+Level* levelPtr = nullptr;
+Player player;
+Game* game = nullptr;
 
 int main()
 {
@@ -29,28 +34,24 @@ int main()
 	int width = 0;
 	int height = 0;
 
-	vector<Level*> allLevels;
-	Level* levelPtr = nullptr;
-
 	levelSetup(allLevels);
-
 	Level::setTargets();
-	Player player;
 
 	levelPtr = allLevels[0];
 	player.setCurrentRoom(levelPtr);
-	Game game(player, levelPtr);
 
-	//std::thread th1(gameLoop, game, player, levelPtr);
-	//std::thread th2(moveEntities);
+	game = new Game(player, levelPtr);
 
-	//th1.join();
-	//th2.join();
+	std::thread th1(gameLoop);
+	std::thread th2(moveEntities);
+
+	th1.join();
+	th2.join();
 }
 
-void gameLoop(Game game, Player player, Level* levelPtr)
+void gameLoop()
 {
-	while (!game.getGameOver())
+	while (!game->getGameOver())
 	{
 		system("cls");
 		if (player.getEnteredPassway())
@@ -58,11 +59,11 @@ void gameLoop(Game game, Player player, Level* levelPtr)
 			levelPtr = player.getCurrentRoom()->getLevelAtDirection(player.getDirection());
 			player.setCurrentRoom(levelPtr);
 			player.setEnteredPassway(false);
-			game.SetCurrentLevel(levelPtr);
+			game->SetCurrentLevel(levelPtr);
 		}
 
 		levelPtr->DrawLevel(player.getPlayerX(), player.getPlayerY());
-		game.UpdatePlayerPosition();
+		game->UpdatePlayerPosition();
 	}
 	system("cls");
 	levelPtr->DrawLevel(player.getPlayerX(), player.getPlayerY());
@@ -77,7 +78,7 @@ void moveEntities()
 	}
 }
 
-void levelSetup(vector<Level*> &allLevels)
+void levelSetup(vector<Level*>& allLevels)
 {
 	std::ifstream i("lvlsetup.json");
 	json jsonLevels;

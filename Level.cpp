@@ -235,6 +235,7 @@ void Level::loadItems(string levelName)
 
 			levelEntities[GetIndexFromCoordinates(x, y)] = new BasicEnemy(x, y);
 			level[GetIndexFromCoordinates(x, y)] = levelEntities[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
+			Entity::entityList.push_back(levelEntities[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "WEAPON")
 		{
