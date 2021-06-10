@@ -1,7 +1,7 @@
 {
   "levels": [
     {
-      "name": "middle",
+      "name": "middle.txt",
       "index": 0,
       "connection_number": 4,
       "connections": [
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "name": "top",
+      "name": "top.txt",
       "index": 1,
       "connection_number": 1,
       "connections": [
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "name": "left",
+      "name": "left.txt",
       "index": 2,
       "connection_number": 1,
       "connections": [
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "name": "right",
+      "name": "right.txt",
       "index": 3,
       "connection_number": 1,
       "connections": [
@@ -57,7 +57,7 @@
       ]
     },
     {
-      "name": "bot",
+      "name": "bot.txt",
       "index": 4,
       "connection_number": 1,
       "connections": [

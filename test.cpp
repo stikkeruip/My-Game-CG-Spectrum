@@ -1,9 +1,10 @@
-#include <iostream>
-
-int main()
+class Test
 {
-	for (int i = 0; i = 0; i++)
-	{
-		std::cout << "yes";
-	}
-}
+	private:
+
+	public:
+		static void drawLevel()
+		{
+
+		}
+};

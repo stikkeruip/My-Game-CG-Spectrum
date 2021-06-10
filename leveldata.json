@@ -1,0 +1,117 @@
+{
+  "levels": 
+  [
+    {
+      "name": "middle.txt",
+      "width": 22,
+      "height": 26,
+      "levelitems": null
+    },
+    
+    {
+      "name": "top.txt",
+      "width": 22,
+      "height": 26,
+      "levelitems": 
+      [
+	      {
+  		    "portals": 
+  		      [
+  		        {
+          			"id": 1,
+          			"x": 11,
+          			"y": 6
+  		        },
+  		        
+          		{
+          			"id": 1,
+          			"x": 18,
+          			"y": 16
+          		}
+  		      ],
+      		"buttons": 
+      		[
+          		{
+          			"id": 1,
+          			"x": 20,
+          			"y": 18
+          		}
+  		    ]
+	      }
+	    ]
+    },
+	{
+	  "name": "left.txt",
+      "width": 22,
+      "height": 26,
+      "levelitems": 
+	  [
+		  {
+			  "bdoors":
+			  [
+				{
+					"id": 1,
+          			"x": 4,
+          			"y": 8
+				}
+			  ],
+			  "keys":
+			  [
+				{
+					"id": 1,
+					"x": 1,
+          			"y": 8
+				}
+			  ]
+		  }
+	  ]
+	},
+	{
+	  "name": "right.txt",
+      "width": 22,
+      "height": 26,
+      "levelitems": 
+	  [
+		{
+			"weapons":
+			[
+				{
+					"x": 6,
+          			"y": 12
+				}
+			],
+			"enemies":
+			[
+				{
+					"x": 18,
+          			"y": 12
+				}
+			]
+		}
+	  ]
+	},
+	{
+	  "name": "bot.txt",
+      "width": 22,
+      "height": 26,
+      "levelitems": 
+	  [
+		{
+			"kdoors":
+			[
+				{
+					"id": 1,
+					"x": 10,
+          			"y": 19
+				}
+			],
+			"end":
+			{
+				"x": 10,
+          		"y": 23
+			}
+		}
+	  ]
+	}
+  ]
+}

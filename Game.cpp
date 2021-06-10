@@ -1,9 +1,17 @@
 #include <conio.h>
 #include "Game.h"
 
+int Game::getch_noblock()
+{
+	if (_kbhit())
+		return _getch();
+	else
+		return -1;
+}
+
 void Game::UpdatePlayerPosition()
 {
-	char input = _getch();
+	char input = getch_noblock();
 
 	int newPlayerX = player.getPlayerX();
 	int newPlayerY = player.getPlayerY();

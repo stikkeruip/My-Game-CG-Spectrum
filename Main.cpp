@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <thread>
 #include "Player.h"
 #include "Level.h"
 #include "Weapon.h"
@@ -19,6 +20,8 @@ using namespace std;
 using namespace nlohmann;
 
 void levelSetup(vector<Level*> &allLevels);
+void gameLoop(Game game, Player player, Level* levelPtr);
+void moveEntities();
 
 int main()
 {
@@ -38,6 +41,15 @@ int main()
 	player.setCurrentRoom(levelPtr);
 	Game game(player, levelPtr);
 
+	//std::thread th1(gameLoop, game, player, levelPtr);
+	//std::thread th2(moveEntities);
+
+	//th1.join();
+	//th2.join();
+}
+
+void gameLoop(Game game, Player player, Level* levelPtr)
+{
 	while (!game.getGameOver())
 	{
 		system("cls");
@@ -48,11 +60,6 @@ int main()
 			player.setEnteredPassway(false);
 			game.SetCurrentLevel(levelPtr);
 		}
-		if (player.GetHasAttacked())
-		{
-			player.setHasAttacked(false);
-			//todo with attack
-		}
 
 		levelPtr->DrawLevel(player.getPlayerX(), player.getPlayerY());
 		game.UpdatePlayerPosition();
@@ -62,29 +69,28 @@ int main()
 	cout << "gg ez" << endl;
 }
 
+void moveEntities()
+{
+	for (Entity* e : Entity::entityList)
+	{
+		e->movement();
+	}
+}
+
 void levelSetup(vector<Level*> &allLevels)
 {
-	int indexLvl;
-	int connLvl;
-	int connDir;
-	string lvlName;
 	std::ifstream i("lvlsetup.json");
 	json jsonLevels;
 	i >> jsonLevels;
 	for (auto& level : jsonLevels["levels"])
 	{
-		lvlName = level["name"];
-		lvlName.append(".txt");
-		allLevels.push_back(new Level(lvlName));
+		allLevels.push_back(new Level(level["name"]));
 	}
 	for (auto& level : jsonLevels["levels"])
 	{
 		for (auto& connection : level["connections"])
 		{
-			indexLvl = level["index"];
-			connLvl = connection["target"];
-			connDir = connection["direction"];
-			allLevels[indexLvl]->setLevelAtDirection(allLevels[connLvl], static_cast<Direction>(connDir));
+			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Direction>(connection["direction"]));
 		}
 	}
 }

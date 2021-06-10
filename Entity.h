@@ -1,4 +1,9 @@
 #pragma once
+#include <Windows.h>
+#include <vector>
+
+using std::vector;
+
 class Entity
 {
 protected:
@@ -6,8 +11,11 @@ protected:
 	int health;
 	int x;
 	int y;
+	bool dead = false;
 
 public:
+	static vector<Entity*> entityList;
+
 	Entity(int _x, int _y) :displayCharacter('e'), x(_x), y(_y)
 	{
 		health = 20;
@@ -17,6 +25,7 @@ public:
 	virtual int getX() { return x; }
 	virtual int getY() { return y; }
 	virtual void setHealth(int x) { health -= x; }
-	virtual void isDead() { if (health <= 0) displayCharacter = ' '; }
+	virtual void isDead();
+	virtual void movement();
 };
 

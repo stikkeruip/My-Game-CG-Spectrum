@@ -21,5 +21,6 @@ public:
 	void UpdatePlayerPosition();
 	void SetCurrentLevel(Level* _level){ level = _level; }
 	bool getGameOver() {return gameOver;}
+	int getch_noblock();
 };
 

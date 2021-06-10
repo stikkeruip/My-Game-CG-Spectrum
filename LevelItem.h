@@ -28,7 +28,7 @@ public:
 	virtual bool IsWalkable() { return walkable; }
 	virtual int getX() { return x; }
 	virtual int getY() { return y; }
-	virtual void InteractWith( Player* player ) {}
+	virtual void InteractWith(Player* player) {};
 	virtual int getID() { return id; };
 	virtual void setID(int x) { id = x; };
 };
