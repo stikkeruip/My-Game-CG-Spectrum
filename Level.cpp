@@ -97,30 +97,54 @@ void Level::InitLevelItems()
 
 void Level::DrawLevel(int playerX, int playerY)
 { 
+	char* p = new char[kLevelWidth * kLevelHeight];
+
+	//Render the base level to buffer p
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			int index = GetIndexFromCoordinates(x, y);
+			p[index] = level[index];
+		}
+	}
+
+	//Render player/item/entity to buffer p
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			int index = GetIndexFromCoordinates(x, y);
+			
 			if (playerX == x && playerY == y)
 			{
-				cout << kPlayerSymbol;
+				p[index] = kPlayerSymbol;
 			}
 			else if (levelItems[index] != nullptr)
 			{
-				cout << levelItems[index]->GetDisplayCharacter();
+				p[index] = levelItems[index]->GetDisplayCharacter();
 			}
 			else if (levelEntities[index] != nullptr)
 			{
-				cout << levelEntities[index]->GetDisplayCharacter();
+				int entityX = levelEntities[index]->getX();
+				int entityY = levelEntities[index]->getY();
+				int entityIndex = GetIndexFromCoordinates(entityX, entityY);
+				p[entityIndex] = levelEntities[index]->GetDisplayCharacter();
 			}
-			else
-			{
-				cout << level[index];
-			}
+		}
+	}
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			int index = GetIndexFromCoordinates(x, y);
+			cout << p[index];
 		}
 		cout << endl;
 	}
+
+	delete p;
 }
 
 void Level::setTargets()
@@ -234,7 +258,6 @@ void Level::loadItems(string levelName)
 			y = stoi(temp);
 
 			levelEntities[GetIndexFromCoordinates(x, y)] = new BasicEnemy(x, y);
-			level[GetIndexFromCoordinates(x, y)] = levelEntities[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
 			Entity::entityList.push_back(levelEntities[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "WEAPON")
