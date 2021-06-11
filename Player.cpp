@@ -1,6 +1,6 @@
 #include <conio.h>
 #include <iostream>
-#include "Player.h"
+#include "player.h"
 #include "level.h"
 #include "Weapon.h"
 

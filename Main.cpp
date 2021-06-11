@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <fstream>
 #include <thread>
-#include "Player.h"
+#include "player.h"
 #include "Level.h"
 #include "Weapon.h"
 #include "Game.h"
@@ -20,53 +20,51 @@ using namespace std;
 using namespace nlohmann;
 
 void levelSetup(vector<Level*>& allLevels);
-void gameLoop();
+void gameLoop(Game* game, Player* player, Level* levelPtr);
 void moveEntities();
-
-vector<Level*> allLevels;
-Level* levelPtr = nullptr;
-Player player;
-Game* game = nullptr;
 
 int main()
 {
-
 	int width = 0;
 	int height = 0;
+
+	vector<Level*> allLevels;
+	Level* levelPtr = nullptr;
+	Player* player = new Player;
 
 	levelSetup(allLevels);
 	Level::setTargets();
 
 	levelPtr = allLevels[0];
-	player.setCurrentRoom(levelPtr);
+	player->setCurrentRoom(levelPtr);
 
-	game = new Game(player, levelPtr);
+	Game* game = new Game(player, levelPtr);
 
-	std::thread th1(gameLoop);
+	std::thread th1(gameLoop, game, player, levelPtr);
 	std::thread th2(moveEntities);
 
 	th1.join();
 	th2.join();
 }
 
-void gameLoop()
+void gameLoop(Game* game, Player* player, Level* levelPtr)
 {
 	while (!game->getGameOver())
 	{
 		system("cls");
-		if (player.getEnteredPassway())
+		if (player->getEnteredPassway())
 		{
-			levelPtr = player.getCurrentRoom()->getLevelAtDirection(player.getDirection());
-			player.setCurrentRoom(levelPtr);
-			player.setEnteredPassway(false);
+			levelPtr = player->getCurrentRoom()->getLevelAtDirection(player->getDirection());
+			player->setCurrentRoom(levelPtr);
+			player->setEnteredPassway(false);
 			game->SetCurrentLevel(levelPtr);
 		}
 
-		levelPtr->DrawLevel(player.getPlayerX(), player.getPlayerY());
+		levelPtr->DrawLevel(player->getPlayerX(), player->getPlayerY());
 		game->UpdatePlayerPosition();
 	}
 	system("cls");
-	levelPtr->DrawLevel(player.getPlayerX(), player.getPlayerY());
+	levelPtr->DrawLevel(player->getPlayerX(), player->getPlayerY());
 	cout << "gg ez" << endl;
 }
 

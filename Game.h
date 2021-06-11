@@ -1,19 +1,19 @@
 #pragma once
 
-#include "Player.h"
+#include "player.h"
 #include "Level.h"
 #include "Entity.h"
 
 class Game
 {
 protected:
-	Player& player;
+	Player* player;
 	Level* level;
 	Entity* entity;
 	bool gameOver;
 
 public:
-	Game(Player& _player, Level* _level):player(_player), level(_level)
+	Game(Player* _player, Level* _level):player(_player), level(_level)
 	{
 		gameOver = false;
 	}

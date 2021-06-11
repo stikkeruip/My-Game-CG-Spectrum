@@ -1,5 +1,5 @@
 #include "Weapon.h"
-#include "Player.h"
+#include "player.h"
 
 void Weapon::InteractWith(Player* player)
 {

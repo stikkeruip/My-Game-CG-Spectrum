@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include "Player.h"
+#include "player.h"
 #include "LevelItem.h"
 #include "Passway.h"
 #include "Portal.h"
