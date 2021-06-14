@@ -2,9 +2,10 @@
 
 void Portal::InteractWith(Player* player)
 {
-	if (targetPortal)
+	if (targetPortal && !player->getTeleported())
 	{
 		player->setPlayerX(targetPortal->x);
-		player->setPlayerY((targetPortal->y) + 1);
+		player->setPlayerY((targetPortal->y));
+		player->changeTeleportState();
 	}
 }

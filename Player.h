@@ -38,6 +38,7 @@ class Player
 		bool playerHasKey;
 		bool enteredPassway;
 		bool hasAttacked;
+		bool teleported;
 
 		Weapon* weapon;
 		Entity* entity;
@@ -65,6 +66,8 @@ class Player
 
 		void setDirection(Direction _direction) { direction = _direction; }
 
+		void changeTeleportState() { teleported = !teleported; }
+
 
 		//getters
 		Level* getCurrentRoom() { return currentRoom; };
@@ -91,6 +94,7 @@ class Player
 
 		int hit();
 
+		bool getTeleported() { return teleported; }
 
 };
 
