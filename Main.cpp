@@ -45,8 +45,6 @@ int main()
 
 	th1.join();
 	th2.join();
-
-	poop
 }
 
 void gameLoop(Game* game, Player* player, Level* levelPtr)
