@@ -17,6 +17,7 @@ Player::Player()
 	playerHasKey = false;
 	enteredPassway = false;
 	hasAttacked = false;
+	teleported = false;
 
 	weapon = nullptr;
 }

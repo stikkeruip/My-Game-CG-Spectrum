@@ -13,6 +13,7 @@ void Game::UpdatePlayerPosition()
 {
 	char input = getch_noblock();
 
+
 	int newPlayerX = player->getPlayerX();
 	int newPlayerY = player->getPlayerY();
 	int attackX = player->getPlayerX();
@@ -24,24 +25,32 @@ void Game::UpdatePlayerPosition()
 	case 'W':
 	{
 		newPlayerY--;
+		if (player->getTeleported())
+			player->changeTeleportState();
 		break;
 	}
 	case 's':
 	case 'S':
 	{
 		newPlayerY++;
+		if (player->getTeleported())
+			player->changeTeleportState();
 		break;
 	}
 	case 'a':
 	case 'A':
 	{
 		newPlayerX--;
+		if (player->getTeleported())
+			player->changeTeleportState();
 		break;
 	}
 	case 'd':
 	case 'D':
 	{
 		newPlayerX++;
+		if (player->getTeleported())
+			player->changeTeleportState();
 		break;
 	}
 	case KEY_UP:
