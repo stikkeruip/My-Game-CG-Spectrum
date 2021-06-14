@@ -24,8 +24,10 @@ public:
 	virtual char GetDisplayCharacter() { return displayCharacter; }
 	virtual int getX() { return x; }
 	virtual int getY() { return y; }
+	virtual void setX(int x) { this->x = x; }
+	virtual void setY(int y) { this->y = y; }
 	virtual void setHealth(int x) { health -= x; }
 	virtual void isDead();
-	virtual void movement();
+	virtual void GetPositionAtDirection(Direction direction, int& x, int& y);
 };
 

@@ -4,13 +4,10 @@
 #include "level.h"
 #include "Weapon.h"
 
-Player::Player()
+Player::Player() : Entity(11, 12)
 {
 	currentRoom = 0;
-	playerX = 11;
-	playerY = 12;
-	prevX = 0;
-	prevY = 0;
+	displayCharacter = '@';
 	direction = Direction::None;
 	attackDir = Direction::None;
 
@@ -36,29 +33,10 @@ void Player::setWeapon(Weapon* w)
 	weapon = w;
 }
 
-void Player::GetPositionAtDirection(Direction direction, int& x, int& y)
-{
-	switch (direction)
-	{
-	case Direction::Top:
-		y -= 1;
-		break;
-	case Direction::Right:
-		x += 1;
-		break;
-	case Direction::Bot:
-		y += 1;
-		break;
-	case Direction::Left:
-		x -= 1;
-		break;
-	}
-}
-
 int Player::attack(Direction direction)
 {	
-	int x = playerX;
-	int y = playerY;
+	int x = this->x;
+	int y = this->y;
 
 	GetPositionAtDirection(direction, x, y);
 	return currentRoom->GetIndexFromCoordinates(x, y);
@@ -67,4 +45,51 @@ int Player::attack(Direction direction)
 int Player::hit()
 {
 	return weapon->getDamage();
+}
+
+void Player::movement()
+{
+	int index = currentRoom->GetIndexFromCoordinates(x, y);
+
+	if (currentRoom->getContentAt(index) == ' ')
+	{
+		setX(x);
+		setY(y);
+	}
+	else if (currentRoom->getContentAt(index) == '*')
+	{
+		setPlayerHasKey(true);
+		currentRoom->setContentAt(index, ' ');
+		setX(x);
+		setY(y);
+	}
+	else if (currentRoom->getContentAt(index) == 'D' && getPlayerHasKey())
+	{
+		setPlayerHasKey(false);
+		currentRoom->setContentAt(index, ' ');
+		setX(x);
+		setY(y);
+	}
+	else if (currentRoom->getContentAt(index) == 'X')
+	{
+		currentRoom->setContentAt(index, ' ');
+		setX(x);
+		setY(y);
+		gameOver = true;
+		return;
+	}
+	else if (currentRoom->getItemAt(index))
+	{
+		LevelItem* item = currentRoom->getItemAt(index);
+		if (item->IsWalkable())
+		{
+			setX(x);
+			setY(y);
+		}
+		item->InteractWith();
+		if (item->IsPickable())
+		{
+			currentRoom->clearItemAt(index);
+		}
+	}
 }

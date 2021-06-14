@@ -14,6 +14,7 @@
 #include "Portal.h"
 #include "Button.h"
 #include "Gate.h"
+#include "UserInput.h"
 #include "json.hpp"
 
 using namespace std;
@@ -21,7 +22,8 @@ using namespace nlohmann;
 
 void levelSetup(vector<Level*>& allLevels);
 void gameLoop(Game* game, Player* player, Level* levelPtr);
-void moveEntities();
+int getch_noblock();
+Direction getInput();
 
 int main()
 {
@@ -31,6 +33,7 @@ int main()
 	vector<Level*> allLevels;
 	Level* levelPtr = nullptr;
 	Player* player = new Player;
+	UserInput* userInput = new UserInput;
 
 	levelSetup(allLevels);
 	Level::setTargets();
@@ -41,7 +44,7 @@ int main()
 	Game* game = new Game(player, levelPtr);
 
 	std::thread th1(gameLoop, game, player, levelPtr);
-	std::thread th2(moveEntities);
+	std::thread th2(getInput);
 
 	th1.join();
 	th2.join();
@@ -68,14 +71,6 @@ void gameLoop(Game* game, Player* player, Level* levelPtr)
 	cout << "gg ez" << endl;
 }
 
-void moveEntities()
-{
-	for (Entity* e : Entity::entityList)
-	{
-		e->movement();
-	}
-}
-
 void levelSetup(vector<Level*>& allLevels)
 {
 	std::ifstream i("lvlsetup.json");
@@ -91,5 +86,46 @@ void levelSetup(vector<Level*>& allLevels)
 		{
 			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Direction>(connection["direction"]));
 		}
+	}
+}
+
+int getch_noblock()
+{
+	if (_kbhit())
+		return _getch();
+	else
+		return -1;
+}
+
+Direction getInput()
+{
+	char input = getch_noblock();
+
+	switch (input)
+	{
+	case 'w':
+	case 'W':
+	{
+		return Direction::Top;
+		break;
+	}
+	case 's':
+	case 'S':
+	{
+		return Direction::Bot;
+		break;
+	}
+	case 'a':
+	case 'A':
+	{
+		return Direction::Left;
+		break;
+	}
+	case 'd':
+	case 'D':
+	{
+		return Direction::Right;
+		break;
+	}
 	}
 }

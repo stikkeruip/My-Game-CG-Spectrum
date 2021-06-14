@@ -23,25 +23,20 @@ enum class Direction
 	Number
 };
 
-class Player
+class Player : 
+	public Entity
 {
 	private:
 		Level* currentRoom;
-		int playerX;
-		int playerY;
-		int prevX;
-		int prevY;
 		Direction direction;
 		Direction attackDir;
 		
-
 		bool playerHasKey;
 		bool enteredPassway;
 		bool hasAttacked;
 		bool teleported;
 
 		Weapon* weapon;
-		Entity* entity;
 
 	public:
 		Player();
@@ -57,10 +52,6 @@ class Player
 		void setHasAttacked(bool attacked) { hasAttacked = attacked; };
 
 		void setAttackDir(Direction direction) { attackDir = direction; }
-
-		void setPlayerX(int x) { playerX = x; }
-
-		void setPlayerY(int y) { playerY = y; }
 
 		void setPlayerHasKey(bool hasKey) { playerHasKey = hasKey; }
 
@@ -82,13 +73,7 @@ class Player
 
 		Direction getAttackDir() { return attackDir; };
 
-		int getPlayerX() { return playerX; };
-
-		int getPlayerY() { return playerY; };
-
 		bool getPlayerHasKey() { return playerHasKey; }
-
-		void GetPositionAtDirection(Direction direction, int& x, int& y);
 
 		int attack(Direction direction);
 
@@ -96,6 +81,7 @@ class Player
 
 		bool getTeleported() { return teleported; }
 
+		void movement();
 };
 
 #endif
