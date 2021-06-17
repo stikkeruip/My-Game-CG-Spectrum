@@ -1,16 +1,29 @@
 #pragma once
-#include "player.h"
+#include "Player.h"
 
 class Object
 {
 protected:
+	
+
 	char displayCharacter;
 	bool walkable;
 	bool pickable;
 	int x;
 	int y;
 	int id = 0;
+
 public:
+	enum class Direction
+	{
+		None = -1,
+		Top,
+		Right,
+		Bot,
+		Left,
+		Number
+	};
+
 	Object(char c) : displayCharacter(c)
 	{ 
 		pickable = false;

@@ -4,6 +4,6 @@ void Passway::InteractWith(Player* player)
 {
 	player->setEnteredPassway(true);
 	player->setDirection(passwayDirection);
-	player->setPlayerX(targetX);
-	player->setPlayerY(targetY);
+	player->setX(targetX);
+	player->setY(targetY);
 }

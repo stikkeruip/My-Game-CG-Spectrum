@@ -1,10 +1,8 @@
 #pragma once
-#ifndef WEAPON_H
-#define WEAPON_H
 #include "Object.h"
+#include "Player.h"
 
-class Weapon :
-	public Object
+class Weapon : public Object
 {
 	protected:
 		int damage;
@@ -22,4 +20,3 @@ class Weapon :
 		int getDamage() { return damage; };
 		virtual void InteractWith( Player* player );
 };
-#endif

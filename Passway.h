@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
-class Passway :
-	public Object
+
+class Passway : public Object
 {
 protected:
 	Direction passwayDirection;

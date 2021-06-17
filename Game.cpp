@@ -9,7 +9,7 @@ int Game::getch_noblock()
 		return -1;
 }
 
-void Game::UpdateGame(Direction input)
+void Game::UpdateGame(Object::Direction input)
 {
 	char input = getch_noblock();
 
@@ -21,28 +21,28 @@ void Game::UpdateGame(Direction input)
 
 	switch (input)
 	{
-	case Direction::Top:
+	case Object::Direction::Top:
 	{
 		newPlayerY--;
 		if (player->getTeleported())
 			player->changeTeleportState();
 		break;
 	}
-	case Direction::Bot:
+	case Object::Direction::Bot:
 	{
 		newPlayerY++;
 		if (player->getTeleported())
 			player->changeTeleportState();
 		break;
 	}
-	case Direction::Left:
+	case Object::Direction::Left:
 	{
 		newPlayerX--;
 		if (player->getTeleported())
 			player->changeTeleportState();
 		break;
 	}
-	case Direction::Right:
+	case Object::Direction::Right:
 	{
 		newPlayerX++;
 		if (player->getTeleported())

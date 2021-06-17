@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <Windows.h>
+#include "Object.h"
 
 using std::vector;
 

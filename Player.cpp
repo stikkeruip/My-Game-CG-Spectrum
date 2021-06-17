@@ -1,7 +1,7 @@
 #include <conio.h>
 #include <iostream>
-#include "player.h"
-#include "level.h"
+#include "Player.h"
+#include "Level.h"
 #include "Weapon.h"
 
 Player::Player() : Entity(11, 12)
@@ -75,7 +75,7 @@ void Player::movement()
 		currentRoom->setContentAt(index, ' ');
 		setX(x);
 		setY(y);
-		gameOver = true;
+		reachedEnd = true;
 		return;
 	}
 	else if (currentRoom->getItemAt(index))

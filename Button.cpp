@@ -1,5 +1,4 @@
 #include "Button.h"
-#include "Gate.h"
 
 void Button::InteractWith(Player* player)
 {

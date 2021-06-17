@@ -1,10 +1,9 @@
 #pragma once
 #include "Object.h"
+#include "Gate.h"
+#include "Player.h"
 
-class Gate;
-
-class Button :
-	public Object
+class Button : public Object
 {
 protected:
 	Gate* gate = nullptr;

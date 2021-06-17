@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
-class Portal :
-	public Object
+
+class Portal : public Object
 {
 protected:
 	Portal* targetPortal;

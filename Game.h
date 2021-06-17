@@ -1,11 +1,11 @@
 #pragma once
 
-#include "player.h"
 #include "Level.h"
-#include "Entity.h"
+#include "Object.h"
 
 class Game
 {
+
 protected:
 	Player* player;
 	Level* level;
@@ -18,7 +18,7 @@ public:
 		gameOver = false;
 	}
 
-	void UpdateGame(Direction input);
+	void UpdateGame(Object::Direction input);
 	void SetCurrentLevel(Level* _level){ level = _level; }
 	bool getGameOver() {return gameOver;}
 	int getch_noblock();

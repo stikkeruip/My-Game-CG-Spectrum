@@ -22,7 +22,7 @@ using namespace nlohmann;
 void levelSetup(vector<Level*>& allLevels);
 void gameLoop(Game* game, Player* player, Level* levelPtr);
 int getch_noblock();
-Direction getInput();
+Object::Direction getInput();
 
 int main()
 {
@@ -59,7 +59,7 @@ void gameLoop(Game* game, Player* player, Level* levelPtr)
 		}
 
 		levelPtr->DrawLevel(player->getX(), player->getY());
-		game->UpdateGame(getInput());
+		game->UpdateGame();
 	}
 	system("cls");
 	levelPtr->DrawLevel(player->getX(), player->getY());
@@ -79,7 +79,7 @@ void levelSetup(vector<Level*>& allLevels)
 	{
 		for (auto& connection : level["connections"])
 		{
-			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Direction>(connection["direction"]));
+			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Object::Direction>(connection["direction"]));
 		}
 	}
 }
@@ -92,7 +92,7 @@ int getch_noblock()
 		return -1;
 }
 
-Direction getInput()
+Object::Direction getInput()
 {
 	char input = getch_noblock();
 
@@ -101,25 +101,25 @@ Direction getInput()
 	case 'w':
 	case 'W':
 	{
-		return Direction::Top;
+		return Object::Direction::Top;
 		break;
 	}
 	case 's':
 	case 'S':
 	{
-		return Direction::Bot;
+		return Object::Direction::Bot;
 		break;
 	}
 	case 'a':
 	case 'A':
 	{
-		return Direction::Left;
+		return Object::Direction::Left;
 		break;
 	}
 	case 'd':
 	case 'D':
 	{
-		return Direction::Right;
+		return Object::Direction::Right;
 		break;
 	}
 	}

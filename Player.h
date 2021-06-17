@@ -14,18 +14,7 @@ class Level;
 class Weapon;
 class Entity;
 
-enum class Direction
-{
-	None = -1,
-	Top,
-	Right,
-	Bot,
-	Left,
-	Number
-};
-
-class Player : 
-	public Entity
+class Player : public Entity
 {
 	private:
 		Level* currentRoom;
@@ -36,12 +25,12 @@ class Player :
 		bool enteredPassway;
 		bool hasAttacked;
 		bool teleported;
+		bool reachedEnd;
 
 		Weapon* weapon;
 
 	public:
 		Player();
-
 	
 		//setters
 		void setCurrentRoom(Level* _currentRoom) { currentRoom = _currentRoom; }

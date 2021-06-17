@@ -9,7 +9,6 @@
 #include "Object.h"
 #include "Passway.h"
 #include "Portal.h"
-#include "Portal.h"
 #include "Button.h"
 #include "Gate.h"
 #include "Weapon.h"
@@ -24,16 +23,18 @@ constexpr int kLevelHeight = 26;
 class Level
 {
 	private:
+
 		int width;
 		int height;
 		string levelName;
 
 		void InitObjects();
-		Level* levelAtDirections[(int)Direction::Number];
-		Passway* passwayAtDirections[(int)Direction::Number];
+		Level* levelAtDirections[(int)Object::Direction::Number];
+		Passway* passwayAtDirections[(int)Object::Direction::Number];
 
 		static vector<Object*> itemTargets;
 	public:
+
 		Level(string levelName);
 
 		char* level;
@@ -41,7 +42,7 @@ class Level
 		Object* Objects[kLevelWidth * kLevelHeight]; //Objects is an array of pointers (each of them points to a Object)
 		
 		//setters
-		void setLevelAtDirection(Level* level, Direction direction);
+		void setLevelAtDirection(Level* level, Object::Direction direction);
 
 		void setContentAt(int index, char content) { level[index] = content; }
 
@@ -51,7 +52,7 @@ class Level
 
 
 		//getters
-		Level* getLevelAtDirection(Direction direction) { return levelAtDirections[(int)direction]; }
+		Level* getLevelAtDirection(Object::Direction direction) { return levelAtDirections[(int)direction]; }
 
 		int GetIndexFromCoordinates(int x, int y) { return x + y * width; };
 
@@ -65,7 +66,7 @@ class Level
 		Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
 
 		//other functions
-		bool hasLevelAtDirection(Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
+		bool hasLevelAtDirection(Object::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
 
 		void DrawLevel(int playerX, int playerY);
 
