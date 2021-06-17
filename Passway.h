@@ -1,7 +1,7 @@
 #pragma once
-#include "LevelItem.h"
+#include "Object.h"
 class Passway :
-	public LevelItem
+	public Object
 {
 protected:
 	Direction passwayDirection;
@@ -12,7 +12,7 @@ public:
 	int X;
 	int Y;
 
-	Passway(char c, Direction direction, int _x, int _y):LevelItem(c), passwayDirection(direction), X(_x), Y(_y)
+	Passway(char c, Direction direction, int _x, int _y):Object(c), passwayDirection(direction), X(_x), Y(_y)
 	{ 
 		targetX = 0;
 		targetY = 0;

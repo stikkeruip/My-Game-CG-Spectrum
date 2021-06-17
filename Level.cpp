@@ -4,7 +4,7 @@
 
 constexpr char kPlayerSymbol = '@';
 
-vector<LevelItem*> Level::itemTargets;
+vector<Object*> Level::itemTargets;
 	
 Level::Level(string _levelName):levelName(_levelName)
 {
@@ -18,7 +18,7 @@ Level::Level(string _levelName):levelName(_levelName)
 		levelAtDirections[i] = nullptr;
 	}
 
-	InitLevelItems();
+	InitObjects();
 	loadItems(_levelName);
 }
 
@@ -58,38 +58,38 @@ void Level::setLevelAtDirection(Level* level, Direction direction)
 void Level::clearItemAt(int index)
 {
 	level[index] = ' ';
-	levelItems[index] = nullptr;
+	Objects[index] = nullptr;
 	levelEntities[index] = nullptr;
 }
 
-void Level::InitLevelItems()
+void Level::InitObjects()
 {
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			int index = GetIndexFromCoordinates(x, y);
-			levelItems[index] = nullptr;
+			Objects[index] = nullptr;
 			char levelChar = level[index];
 			if  (levelChar == '<')
 			{
 				passwayAtDirections[(int)Direction::Left] = new Passway(levelChar, Direction::Left, x, y);
-				levelItems[index] = passwayAtDirections[(int)Direction::Left];
+				Objects[index] = passwayAtDirections[(int)Direction::Left];
 			}
 			else if (levelChar == '>')
 			{
 				passwayAtDirections[(int)Direction::Right] = new Passway(levelChar, Direction::Right, x, y);
-				levelItems[index] = passwayAtDirections[(int)Direction::Right];
+				Objects[index] = passwayAtDirections[(int)Direction::Right];
 			}
 			else if (levelChar == '^')
 			{
 				passwayAtDirections[(int)Direction::Top] = new Passway(levelChar, Direction::Top, x, y);
-				levelItems[index] = passwayAtDirections[(int)Direction::Top];
+				Objects[index] = passwayAtDirections[(int)Direction::Top];
 			}
 			else if (levelChar == 'v')
 			{
 				passwayAtDirections[(int)Direction::Bot] = new Passway(levelChar, Direction::Bot, x, y);
-				levelItems[index] = passwayAtDirections[(int)Direction::Bot];
+				Objects[index] = passwayAtDirections[(int)Direction::Bot];
 			}
 		}
 	}
@@ -120,9 +120,9 @@ void Level::DrawLevel(int playerX, int playerY)
 			{
 				p[index] = kPlayerSymbol;
 			}
-			else if (levelItems[index] != nullptr)
+			else if (Objects[index] != nullptr)
 			{
-				p[index] = levelItems[index]->GetDisplayCharacter();
+				p[index] = Objects[index]->GetDisplayCharacter();
 			}
 			else if (levelEntities[index] != nullptr)
 			{
@@ -244,10 +244,10 @@ void Level::loadItems(string levelName)
 			fname >> temp;
 			y = stoi(temp);
 
-			levelItems[GetIndexFromCoordinates(x, y)] = new Portal(x, y);
-			levelItems[GetIndexFromCoordinates(x, y)]->setID(id);
-			level[GetIndexFromCoordinates(x, y)] = levelItems[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
-			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
+			Objects[GetIndexFromCoordinates(x, y)] = new Portal(x, y);
+			Objects[GetIndexFromCoordinates(x, y)]->setID(id);
+			level[GetIndexFromCoordinates(x, y)] = Objects[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
+			itemTargets.push_back(Objects[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "ENEMY")
 		{
@@ -268,8 +268,8 @@ void Level::loadItems(string levelName)
 			fname >> temp;
 			y = stoi(temp);
 
-			levelItems[GetIndexFromCoordinates(x, y)] = new Weapon(x, y);
-			level[GetIndexFromCoordinates(x, y)] = levelItems[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
+			Objects[GetIndexFromCoordinates(x, y)] = new Weapon(x, y);
+			level[GetIndexFromCoordinates(x, y)] = Objects[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
 		}
 		else if (temp == "BUTTON")
 		{
@@ -282,10 +282,10 @@ void Level::loadItems(string levelName)
 			fname >> temp;
 			y = stoi(temp);
 
-			levelItems[GetIndexFromCoordinates(x, y)] = new Button(x, y);
-			levelItems[GetIndexFromCoordinates(x, y)]->setID(id);
-			level[GetIndexFromCoordinates(x, y)] = levelItems[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
-			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
+			Objects[GetIndexFromCoordinates(x, y)] = new Button(x, y);
+			Objects[GetIndexFromCoordinates(x, y)]->setID(id);
+			level[GetIndexFromCoordinates(x, y)] = Objects[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
+			itemTargets.push_back(Objects[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "BDOOR")
 		{
@@ -298,10 +298,10 @@ void Level::loadItems(string levelName)
 			fname >> temp;
 			y = stoi(temp);
 
-			levelItems[GetIndexFromCoordinates(x, y)] = new Gate(x, y);
-			levelItems[GetIndexFromCoordinates(x, y)]->setID(id);
-			level[GetIndexFromCoordinates(x, y)] = levelItems[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
-			itemTargets.push_back(levelItems[GetIndexFromCoordinates(x, y)]);
+			Objects[GetIndexFromCoordinates(x, y)] = new Gate(x, y);
+			Objects[GetIndexFromCoordinates(x, y)]->setID(id);
+			level[GetIndexFromCoordinates(x, y)] = Objects[GetIndexFromCoordinates(x, y)]->GetDisplayCharacter();
+			itemTargets.push_back(Objects[GetIndexFromCoordinates(x, y)]);
 		}
 		else if (temp == "KDOOR")
 		{

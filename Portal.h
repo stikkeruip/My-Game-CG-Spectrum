@@ -1,13 +1,13 @@
 #pragma once
-#include "LevelItem.h"
+#include "Object.h"
 class Portal :
-	public LevelItem
+	public Object
 {
 protected:
 	Portal* targetPortal;
 	int id;
 public:
-	Portal(int _x, int _y) : LevelItem(_x, _y)
+	Portal(int _x, int _y) : Object(_x, _y)
 	{
 		id = 0;
 		displayCharacter = 'O';

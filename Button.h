@@ -1,16 +1,16 @@
 #pragma once
-#include "LevelItem.h"
+#include "Object.h"
 
 class Gate;
 
 class Button :
-	public LevelItem
+	public Object
 {
 protected:
 	Gate* gate = nullptr;
 
 public:
-	Button(int _x, int _y) : LevelItem(_x, _y)
+	Button(int _x, int _y) : Object(_x, _y)
 	{
 		displayCharacter = 'B';
 		walkable = true;

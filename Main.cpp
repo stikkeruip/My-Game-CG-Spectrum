@@ -6,7 +6,6 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
-#include <thread>
 #include "player.h"
 #include "Level.h"
 #include "Weapon.h"
@@ -43,11 +42,7 @@ int main()
 
 	Game* game = new Game(player, levelPtr);
 
-	std::thread th1(gameLoop, game, player, levelPtr);
-	std::thread th2(getInput);
-
-	th1.join();
-	th2.join();
+	gameLoop(game, player, levelPtr);
 }
 
 void gameLoop(Game* game, Player* player, Level* levelPtr)
@@ -63,11 +58,11 @@ void gameLoop(Game* game, Player* player, Level* levelPtr)
 			game->SetCurrentLevel(levelPtr);
 		}
 
-		levelPtr->DrawLevel(player->getPlayerX(), player->getPlayerY());
-		game->UpdatePlayerPosition();
+		levelPtr->DrawLevel(player->getX(), player->getY());
+		game->UpdateGame(getInput());
 	}
 	system("cls");
-	levelPtr->DrawLevel(player->getPlayerX(), player->getPlayerY());
+	levelPtr->DrawLevel(player->getX(), player->getY());
 	cout << "gg ez" << endl;
 }
 

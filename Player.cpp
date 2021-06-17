@@ -80,7 +80,7 @@ void Player::movement()
 	}
 	else if (currentRoom->getItemAt(index))
 	{
-		LevelItem* item = currentRoom->getItemAt(index);
+		Object* item = currentRoom->getItemAt(index);
 		if (item->IsWalkable())
 		{
 			setX(x);

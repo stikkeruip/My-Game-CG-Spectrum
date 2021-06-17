@@ -4,15 +4,18 @@ vector<Entity*> Entity::entityList;
 
 void Entity::isDead()
 {
-	if (health <= 0) displayCharacter = ' ';
-	dead = true;
+	if (health <= 0)
+	{
+		setDisplayCharacter(' ');
+		dead = true;
+	}
 }
 
-void Entity::movement()
+/*void Entity::movement()
 {
 	x = x;
 	y = y;
-}
+}*/
 
 void Entity::GetPositionAtDirection(Direction direction, int& x, int& y)
 {

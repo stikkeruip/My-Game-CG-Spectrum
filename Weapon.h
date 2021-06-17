@@ -1,16 +1,16 @@
 #pragma once
 #ifndef WEAPON_H
 #define WEAPON_H
-#include "LevelItem.h"
+#include "Object.h"
 
 class Weapon :
-	public LevelItem
+	public Object
 {
 	protected:
 		int damage;
 
 	public:
-		Weapon(int _x, int _y) :LevelItem(_x, _y)
+		Weapon(int _x, int _y) :Object(_x, _y)
 		{
 			displayCharacter = 'W';
 			walkable = true;

@@ -18,7 +18,7 @@ public:
 		gameOver = false;
 	}
 
-	void UpdatePlayerPosition();
+	void UpdateGame(Direction input);
 	void SetCurrentLevel(Level* _level){ level = _level; }
 	bool getGameOver() {return gameOver;}
 	int getch_noblock();

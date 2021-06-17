@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include "player.h"
-#include "LevelItem.h"
+#include "Object.h"
 #include "Passway.h"
 #include "Portal.h"
 #include "Portal.h"
@@ -28,17 +28,17 @@ class Level
 		int height;
 		string levelName;
 
-		void InitLevelItems();
+		void InitObjects();
 		Level* levelAtDirections[(int)Direction::Number];
 		Passway* passwayAtDirections[(int)Direction::Number];
 
-		static vector<LevelItem*> itemTargets;
+		static vector<Object*> itemTargets;
 	public:
 		Level(string levelName);
 
 		char* level;
 		Entity* levelEntities[kLevelWidth * kLevelHeight];
-		LevelItem* levelItems[kLevelWidth * kLevelHeight]; //levelItems is an array of pointers (each of them points to a LevelItem)
+		Object* Objects[kLevelWidth * kLevelHeight]; //Objects is an array of pointers (each of them points to a Object)
 		
 		//setters
 		void setLevelAtDirection(Level* level, Direction direction);
@@ -59,8 +59,8 @@ class Level
 
 		char getContentAt (int index) { return level[index]; }
 
-		LevelItem* getItemAt (int index) { return levelItems[index]; }
-		LevelItem* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
+		Object* getItemAt (int index) { return Objects[index]; }
+		Object* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
 		Entity* getEntityAt(int index) { return levelEntities[index]; }
 		Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
 

@@ -25,13 +25,12 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Level.cpp" />
-    <ClCompile Include="LevelItem.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Passway.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Test.cpp" />
-    <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,11 +41,10 @@
     <ClInclude Include="Gate.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="LevelItem.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Passway.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
-    <ClInclude Include="UserInput.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

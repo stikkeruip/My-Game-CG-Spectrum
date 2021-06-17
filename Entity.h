@@ -1,31 +1,23 @@
 #pragma once
-#include <Windows.h>
 #include <vector>
 
 using std::vector;
 
-class Entity
+class Entity : public Object
 {
 protected:
-	char displayCharacter;
 	int health;
-	int x;
-	int y;
 	bool dead = false;
 
 public:
 	static vector<Entity*> entityList;
 
-	Entity(int _x, int _y) :displayCharacter('e'), x(_x), y(_y)
+	Entity(int _x, int _y) : Object(_x, _y)
 	{
 		health = 20;
+		displayCharacter = 'e';
 	}
 
-	virtual char GetDisplayCharacter() { return displayCharacter; }
-	virtual int getX() { return x; }
-	virtual int getY() { return y; }
-	virtual void setX(int x) { this->x = x; }
-	virtual void setY(int y) { this->y = y; }
 	virtual void setHealth(int x) { health -= x; }
 	virtual void isDead();
 	virtual void GetPositionAtDirection(Direction direction, int& x, int& y);

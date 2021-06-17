@@ -1,14 +1,14 @@
 #pragma once
-#include "LevelItem.h"
+#include "Object.h"
 class Gate :
-	public LevelItem
+	public Object
 {
 protected:
 	bool isOpen = false;
 	int id;
 
 public:
-	Gate(int _x, int _y) : LevelItem(_x, _y)
+	Gate(int _x, int _y) : Object(_x, _y)
 	{
 		displayCharacter = ']';
 		walkable = false;

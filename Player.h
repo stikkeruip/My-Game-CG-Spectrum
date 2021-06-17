@@ -3,6 +3,7 @@
 #define PLAYER_H
 
 #include <vector>
+#include "Entity.h"
 
 #define KEY_UP 72
 #define KEY_DOWN 80
