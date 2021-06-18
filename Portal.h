@@ -1,6 +1,8 @@
 #pragma once
 #include "Object.h"
 
+class Player;
+
 class Portal : public Object
 {
 protected:

@@ -41,11 +41,12 @@ void Game::UpdateGame(Direction::Direction pInput)
 
 	Player* p;
 	Direction::Direction mInput;
-	int index = level->GetIndexFromCoordinates(newX, newY);
+	
 	for (Entity* i : Entity::entityList)
 	{
 		newX = i->getX();
 		newY = i->getY();
+		int index = level->GetIndexFromCoordinates(newX, newY);
 		attackX = i->getX();
 		attackY = i->getY();
 
@@ -59,33 +60,34 @@ void Game::UpdateGame(Direction::Direction pInput)
 
 		switch (mInput)
 		{
-		case Direction::Direction::Top:
-		{
-			newY--;
-			if (player && player->getTeleported())
-				player->changeTeleportState();
-			break;
-		}
-		case Direction::Direction::Bot:
-		{
-			newY++;
-			if (player && player->getTeleported())
-				player->changeTeleportState();
-			break;
-		}
-		case Direction::Direction::Left:
-		{
-			newX--;
-			if (player && player->getTeleported())
-				player->changeTeleportState();
-			break;
-		}
-		case Direction::Direction::Right:
-		{
-			newX++;
-			if (player && player->getTeleported())
-				player->changeTeleportState();
-			break;
+			case Direction::Direction::Top:
+			{
+				newY--;
+				if (player && player->getTeleported())
+					player->changeTeleportState();
+				break;
+			}
+			case Direction::Direction::Bot:
+			{
+				newY++;
+				if (player && player->getTeleported())
+					player->changeTeleportState();
+				break;
+			}
+			case Direction::Direction::Left:
+			{
+				newX--;
+				if (player && player->getTeleported())
+					player->changeTeleportState();
+				break;
+			}
+			case Direction::Direction::Right:
+			{
+				newX++;
+				if (player && player->getTeleported())
+					player->changeTeleportState();
+				break;
+			}
 		}
 
 		if (level->getContentAt(index) == ' ')

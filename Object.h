@@ -1,5 +1,6 @@
 #pragma once
-#include "Player.h"
+
+class Player;
 
 class Object
 {
@@ -30,7 +31,7 @@ public:
 	
 	virtual bool IsPickable() { return pickable; }
 	virtual bool IsWalkable() { return walkable; }
-	virtual void InteractWith(Player* player);
+	virtual void InteractWith(Player* player) {}
 	
 
 	//getters

@@ -2,6 +2,8 @@
 #include "Object.h"
 #include "Direction.h"
 
+class Player;
+
 class Passway : public Object
 {
 protected:

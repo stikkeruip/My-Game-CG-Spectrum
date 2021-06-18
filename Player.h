@@ -11,7 +11,6 @@
 
 class Level;
 class Weapon;
-class Entity;
 
 class Player : public Entity
 {

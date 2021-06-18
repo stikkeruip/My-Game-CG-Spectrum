@@ -1,4 +1,5 @@
 #include "Passway.h"
+#include "Player.h"
 
 void Passway::InteractWith(Player* player)
 {

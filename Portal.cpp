@@ -1,4 +1,5 @@
 #include "Portal.h"
+#include "Player.h"
 
 void Portal::InteractWith(Player* player)
 {
