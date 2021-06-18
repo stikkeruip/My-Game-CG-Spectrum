@@ -1,6 +1,4 @@
 #pragma once
-#ifndef PLAYER_H
-#define PLAYER_H
 
 #include <vector>
 #include "Entity.h"
@@ -72,5 +70,3 @@ class Player : public Entity
 
 		bool getTeleported() { return teleported; }
 };
-
-#endif
