@@ -32,6 +32,7 @@ int main()
 	vector<Level*> allLevels;
 	Level* levelPtr = nullptr;
 	Player* player = new Player;
+	Entity::entityList.push_back(player);
 
 	levelSetup(allLevels);
 	Level::setTargets();
@@ -101,25 +102,23 @@ Direction::Direction getInput()
 	case 'W':
 	{
 		return Direction::Direction::Top;
-		break;
 	}
 	case 's':
 	case 'S':
 	{
 		return Direction::Direction::Bot;
-		break;
 	}
 	case 'a':
 	case 'A':
 	{
 		return Direction::Direction::Left;
-		break;
 	}
 	case 'd':
 	case 'D':
 	{
 		return Direction::Direction::Right;
-		break;
 	}
+	default:
+		return Direction::Direction::None;
 	}
 }

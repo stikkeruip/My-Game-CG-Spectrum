@@ -40,7 +40,7 @@ void Game::UpdateGame(Direction::Direction pInput)
 	int attackY;
 
 	Player* p;
-	Direction::Direction mInput;
+	Direction::Direction eInput;
 	
 	for (Entity* i : Entity::entityList)
 	{
@@ -52,13 +52,16 @@ void Game::UpdateGame(Direction::Direction pInput)
 
 		if (p = dynamic_cast<Player*>(i))
 		{
-			mInput = pInput;
+			eInput = pInput;
 			player = p;
+
+		}
+		else
+		{
+			eInput = entityMovement();
 		}
 
-		mInput = entityMovement();
-
-		switch (mInput)
+		switch (eInput)
 		{
 			case Direction::Direction::Top:
 			{
