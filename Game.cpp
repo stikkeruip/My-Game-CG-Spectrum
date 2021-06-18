@@ -30,7 +30,7 @@ Direction::Direction Game::entityMovement()
 	}
 }
 
-void Game::UpdateGame(Direction::Direction pInput)
+void Game::UpdateGame(pInput)
 {
 	char input = getch_noblock();
 
@@ -44,6 +44,8 @@ void Game::UpdateGame(Direction::Direction pInput)
 	
 	for (Entity* i : Entity::entityList)
 	{
+		i->Update();
+
 		newX = i->getX();
 		newY = i->getY();
 		int index = level->GetIndexFromCoordinates(newX, newY);
