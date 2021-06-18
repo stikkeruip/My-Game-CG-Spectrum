@@ -13,7 +13,7 @@
 #include "Portal.h"
 #include "Button.h"
 #include "Gate.h"
-#include "UserInput.h"
+#include "Direction.h"
 #include "json.hpp"
 
 using namespace std;
@@ -22,7 +22,7 @@ using namespace nlohmann;
 void levelSetup(vector<Level*>& allLevels);
 void gameLoop(Game* game, Player* player, Level* levelPtr);
 int getch_noblock();
-Object::Direction getInput();
+Direction::Direction getInput();
 
 int main()
 {
@@ -32,7 +32,6 @@ int main()
 	vector<Level*> allLevels;
 	Level* levelPtr = nullptr;
 	Player* player = new Player;
-	UserInput* userInput = new UserInput;
 
 	levelSetup(allLevels);
 	Level::setTargets();
@@ -59,7 +58,7 @@ void gameLoop(Game* game, Player* player, Level* levelPtr)
 		}
 
 		levelPtr->DrawLevel(player->getX(), player->getY());
-		game->UpdateGame();
+		game->UpdateGame(getInput());
 	}
 	system("cls");
 	levelPtr->DrawLevel(player->getX(), player->getY());
@@ -79,7 +78,7 @@ void levelSetup(vector<Level*>& allLevels)
 	{
 		for (auto& connection : level["connections"])
 		{
-			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Object::Direction>(connection["direction"]));
+			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Direction::Direction>(connection["direction"]));
 		}
 	}
 }
@@ -92,7 +91,7 @@ int getch_noblock()
 		return -1;
 }
 
-Object::Direction getInput()
+Direction::Direction getInput()
 {
 	char input = getch_noblock();
 
@@ -101,25 +100,25 @@ Object::Direction getInput()
 	case 'w':
 	case 'W':
 	{
-		return Object::Direction::Top;
+		return Direction::Direction::Top;
 		break;
 	}
 	case 's':
 	case 'S':
 	{
-		return Object::Direction::Bot;
+		return Direction::Direction::Bot;
 		break;
 	}
 	case 'a':
 	case 'A':
 	{
-		return Object::Direction::Left;
+		return Direction::Direction::Left;
 		break;
 	}
 	case 'd':
 	case 'D':
 	{
-		return Object::Direction::Right;
+		return Direction::Direction::Right;
 		break;
 	}
 	}

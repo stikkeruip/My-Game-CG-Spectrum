@@ -2,6 +2,7 @@
 
 #include "Level.h"
 #include "Object.h"
+#include "Direction.h"
 
 class Game
 {
@@ -18,9 +19,10 @@ public:
 		gameOver = false;
 	}
 
-	void UpdateGame(Object::Direction input);
+	void UpdateGame(Direction::Direction input);
 	void SetCurrentLevel(Level* _level){ level = _level; }
 	bool getGameOver() {return gameOver;}
+	Direction::Direction entityMovement();
 	int getch_noblock();
 };
 

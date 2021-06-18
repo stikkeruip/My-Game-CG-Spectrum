@@ -1,10 +1,11 @@
 #pragma once
 #include "Object.h"
+#include "Direction.h"
 
 class Passway : public Object
 {
 protected:
-	Direction passwayDirection;
+	Direction::Direction passwayDirection;
 	int targetX;
 	int targetY;
 
@@ -12,7 +13,7 @@ public:
 	int X;
 	int Y;
 
-	Passway(char c, Direction direction, int _x, int _y):Object(c), passwayDirection(direction), X(_x), Y(_y)
+	Passway(char c, Direction::Direction direction, int _x, int _y):Object(c), passwayDirection(direction), X(_x), Y(_y)
 	{ 
 		targetX = 0;
 		targetY = 0;

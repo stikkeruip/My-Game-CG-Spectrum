@@ -2,6 +2,7 @@
 #include <vector>
 #include <Windows.h>
 #include "Object.h"
+#include "Direction.h"
 
 using std::vector;
 
@@ -22,6 +23,6 @@ public:
 
 	virtual void setHealth(int x) { health -= x; }
 	virtual void isDead();
-	virtual void GetPositionAtDirection(Direction direction, int& x, int& y);
+	virtual void GetPositionAtDirection(Direction::Direction direction, int& x, int& y);
 };
 

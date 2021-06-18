@@ -33,7 +33,7 @@ void Player::setWeapon(Weapon* w)
 	weapon = w;
 }
 
-int Player::attack(Direction direction)
+int Player::attack(Direction::Direction direction)
 {	
 	int x = this->x;
 	int y = this->y;
@@ -45,51 +45,4 @@ int Player::attack(Direction direction)
 int Player::hit()
 {
 	return weapon->getDamage();
-}
-
-void Player::movement()
-{
-	int index = currentRoom->GetIndexFromCoordinates(x, y);
-
-	if (currentRoom->getContentAt(index) == ' ')
-	{
-		setX(x);
-		setY(y);
-	}
-	else if (currentRoom->getContentAt(index) == '*')
-	{
-		setPlayerHasKey(true);
-		currentRoom->setContentAt(index, ' ');
-		setX(x);
-		setY(y);
-	}
-	else if (currentRoom->getContentAt(index) == 'D' && getPlayerHasKey())
-	{
-		setPlayerHasKey(false);
-		currentRoom->setContentAt(index, ' ');
-		setX(x);
-		setY(y);
-	}
-	else if (currentRoom->getContentAt(index) == 'X')
-	{
-		currentRoom->setContentAt(index, ' ');
-		setX(x);
-		setY(y);
-		reachedEnd = true;
-		return;
-	}
-	else if (currentRoom->getItemAt(index))
-	{
-		Object* item = currentRoom->getItemAt(index);
-		if (item->IsWalkable())
-		{
-			setX(x);
-			setY(y);
-		}
-		item->InteractWith();
-		if (item->IsPickable())
-		{
-			currentRoom->clearItemAt(index);
-		}
-	}
 }

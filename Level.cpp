@@ -13,7 +13,7 @@ Level::Level(string _levelName) : levelName(_levelName)
 	level = loadLevel(_levelName);
 	
 
-	for (int i = 0; i < (int)Object::Direction::Number; i++)
+	for (int i = 0; i < (int)Direction::Direction::Number; i++)
 	{
 		levelAtDirections[i] = nullptr;
 	}
@@ -22,31 +22,31 @@ Level::Level(string _levelName) : levelName(_levelName)
 	loadItems(_levelName);
 }
 
-void Level::setLevelAtDirection(Level* level, Object::Direction direction)
+void Level::setLevelAtDirection(Level* level, Direction::Direction direction)
 {
 	levelAtDirections[(int)direction] = level;
 
 	if (passwayAtDirections[(int)direction])
 	{
-		Object::Direction connectedPasswayDirection;
+		Direction::Direction connectedPasswayDirection;
 		int deltaX = 0;
 		int deltaY = 0;
 		switch (direction)
 		{
-		case Object::Direction::Top:
-			connectedPasswayDirection = Object::Direction::Bot;
+		case Direction::Direction::Top:
+			connectedPasswayDirection = Direction::Direction::Bot;
 			deltaY -= 1;
 			break;
-		case Object::Direction::Right:
-			connectedPasswayDirection = Object::Direction::Left;
+		case Direction::Direction::Right:
+			connectedPasswayDirection = Direction::Direction::Left;
 			deltaX += 1;
 			break;
-		case Object::Direction::Bot:
-			connectedPasswayDirection = Object::Direction::Top;
+		case Direction::Direction::Bot:
+			connectedPasswayDirection = Direction::Direction::Top;
 			deltaY += 1;
 			break;
-		case Object::Direction::Left:
-			connectedPasswayDirection = Object::Direction::Right;
+		case Direction::Direction::Left:
+			connectedPasswayDirection = Direction::Direction::Right;
 			deltaX -= 1;
 			break;
 		}
@@ -73,23 +73,23 @@ void Level::InitObjects()
 			char levelChar = level[index];
 			if  (levelChar == '<')
 			{
-				passwayAtDirections[(int)Object::Direction::Left] = new Passway(levelChar, Object::Direction::Left, x, y);
-				Objects[index] = passwayAtDirections[(int)Object::Direction::Left];
+				passwayAtDirections[(int)Direction::Direction::Left] = new Passway(levelChar, Direction::Direction::Left, x, y);
+				Objects[index] = passwayAtDirections[(int)Direction::Direction::Left];
 			}
 			else if (levelChar == '>')
 			{
-				passwayAtDirections[(int)Object::Direction::Right] = new Passway(levelChar, Object::Direction::Right, x, y);
-				Objects[index] = passwayAtDirections[(int)Object::Direction::Right];
+				passwayAtDirections[(int)Direction::Direction::Right] = new Passway(levelChar, Direction::Direction::Right, x, y);
+				Objects[index] = passwayAtDirections[(int)Direction::Direction::Right];
 			}
 			else if (levelChar == '^')
 			{
-				passwayAtDirections[(int)Object::Direction::Top] = new Passway(levelChar, Object::Direction::Top, x, y);
-				Objects[index] = passwayAtDirections[(int)Object::Direction::Top];
+				passwayAtDirections[(int)Direction::Direction::Top] = new Passway(levelChar, Direction::Direction::Top, x, y);
+				Objects[index] = passwayAtDirections[(int)Direction::Direction::Top];
 			}
 			else if (levelChar == 'v')
 			{
-				passwayAtDirections[(int)Object::Direction::Bot] = new Passway(levelChar, Object::Direction::Bot, x, y);
-				Objects[index] = passwayAtDirections[(int)Object::Direction::Bot];
+				passwayAtDirections[(int)Direction::Direction::Bot] = new Passway(levelChar, Direction::Direction::Bot, x, y);
+				Objects[index] = passwayAtDirections[(int)Direction::Direction::Bot];
 			}
 		}
 	}

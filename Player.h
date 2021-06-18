@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "Entity.h"
+#include "Direction.h"
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -18,8 +19,8 @@ class Player : public Entity
 {
 	private:
 		Level* currentRoom;
-		Direction direction;
-		Direction attackDir;
+		Direction::Direction direction;
+		Direction::Direction attackDir;
 		
 		bool playerHasKey;
 		bool enteredPassway;
@@ -39,39 +40,37 @@ class Player : public Entity
 
 		void setWeapon(Weapon* x);
 
-		void setHasAttacked(bool attacked) { hasAttacked = attacked; };
+		void setHasAttacked(bool attacked) { hasAttacked = attacked; }
 
-		void setAttackDir(Direction direction) { attackDir = direction; }
+		void setAttackDir(Direction::Direction direction) { attackDir = direction; }
 
 		void setPlayerHasKey(bool hasKey) { playerHasKey = hasKey; }
 
-		void setDirection(Direction _direction) { direction = _direction; }
+		void setDirection(Direction::Direction _direction) { direction = _direction; }
 
 		void changeTeleportState() { teleported = !teleported; }
 
 
 		//getters
-		Level* getCurrentRoom() { return currentRoom; };
+		Level* getCurrentRoom() { return currentRoom; }
 
-		Direction getDirection() { return direction; };
+		Direction::Direction getDirection() { return direction; }
 
-		bool getEnteredPassway() { return enteredPassway; };
+		bool getEnteredPassway() { return enteredPassway; }
 
-		bool hasWeapon() { return weapon != nullptr; };
+		bool hasWeapon() { return weapon != nullptr; }
 
-		bool GetHasAttacked() { return hasAttacked; };
+		bool GetHasAttacked() { return hasAttacked; }
 
-		Direction getAttackDir() { return attackDir; };
+		Direction::Direction getAttackDir() { return attackDir; }
 
 		bool getPlayerHasKey() { return playerHasKey; }
 
-		int attack(Direction direction);
+		int attack(Direction::Direction direction);
 
 		int hit();
 
 		bool getTeleported() { return teleported; }
-
-		void movement();
 };
 
 #endif

@@ -36,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gate.h" />

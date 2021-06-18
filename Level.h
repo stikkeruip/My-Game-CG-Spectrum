@@ -14,6 +14,7 @@
 #include "Weapon.h"
 #include "Entity.h"
 #include "BasicEnemy.h"
+#include "Direction.h"
 
 using namespace std;
 
@@ -29,8 +30,8 @@ class Level
 		string levelName;
 
 		void InitObjects();
-		Level* levelAtDirections[(int)Object::Direction::Number];
-		Passway* passwayAtDirections[(int)Object::Direction::Number];
+		Level* levelAtDirections[(int)Direction::Direction::Number];
+		Passway* passwayAtDirections[(int)Direction::Direction::Number];
 
 		static vector<Object*> itemTargets;
 	public:
@@ -42,7 +43,7 @@ class Level
 		Object* Objects[kLevelWidth * kLevelHeight]; //Objects is an array of pointers (each of them points to a Object)
 		
 		//setters
-		void setLevelAtDirection(Level* level, Object::Direction direction);
+		void setLevelAtDirection(Level* level, Direction::Direction direction);
 
 		void setContentAt(int index, char content) { level[index] = content; }
 
@@ -52,7 +53,7 @@ class Level
 
 
 		//getters
-		Level* getLevelAtDirection(Object::Direction direction) { return levelAtDirections[(int)direction]; }
+		Level* getLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction]; }
 
 		int GetIndexFromCoordinates(int x, int y) { return x + y * width; };
 
@@ -66,7 +67,7 @@ class Level
 		Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
 
 		//other functions
-		bool hasLevelAtDirection(Object::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
+		bool hasLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
 
 		void DrawLevel(int playerX, int playerY);
 

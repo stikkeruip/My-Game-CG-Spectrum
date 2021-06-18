@@ -17,7 +17,7 @@ void Entity::isDead()
 	y = y;
 }*/
 
-void Entity::GetPositionAtDirection(Direction direction, int& x, int& y)
+void Entity::GetPositionAtDirection(Direction::Direction direction, int& x, int& y)
 {
 	switch (direction)
 	{

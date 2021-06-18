@@ -9,46 +9,132 @@ int Game::getch_noblock()
 		return -1;
 }
 
-void Game::UpdateGame(Object::Direction input)
+Direction::Direction Game::entityMovement()
+{
+	int dir = rand() % (3 - 0 + 1) + 0;
+	if (dir == 0)
+	{
+		return Direction::Top;
+	}
+	else if (dir == 1)
+	{
+		return Direction::Right;
+	}
+	else if (dir == 2)
+	{
+		return Direction::Bot;
+	}
+	else if (dir == 3)
+	{
+		return Direction::Left;
+	}
+}
+
+void Game::UpdateGame(Direction::Direction pInput)
 {
 	char input = getch_noblock();
 
+	int newX;
+	int newY;
+	int attackX;
+	int attackY;
 
-	int newPlayerX = player->getX();
-	int newPlayerY = player->getY();
-	int attackX = player->getX();
-	int attackY = player->getY();
+	Player* p;
+	Direction::Direction mInput;
+	int index = level->GetIndexFromCoordinates(newX, newY);
+	for (Entity* i : Entity::entityList)
+	{
+		newX = i->getX();
+		newY = i->getY();
+		attackX = i->getX();
+		attackY = i->getY();
 
-	switch (input)
-	{
-	case Object::Direction::Top:
-	{
-		newPlayerY--;
-		if (player->getTeleported())
-			player->changeTeleportState();
-		break;
+		if (p = dynamic_cast<Player*>(i))
+		{
+			mInput = pInput;
+			player = p;
+		}
+
+		mInput = entityMovement();
+
+		switch (mInput)
+		{
+		case Direction::Direction::Top:
+		{
+			newY--;
+			if (player && player->getTeleported())
+				player->changeTeleportState();
+			break;
+		}
+		case Direction::Direction::Bot:
+		{
+			newY++;
+			if (player && player->getTeleported())
+				player->changeTeleportState();
+			break;
+		}
+		case Direction::Direction::Left:
+		{
+			newX--;
+			if (player && player->getTeleported())
+				player->changeTeleportState();
+			break;
+		}
+		case Direction::Direction::Right:
+		{
+			newX++;
+			if (player && player->getTeleported())
+				player->changeTeleportState();
+			break;
+		}
+
+		if (level->getContentAt(index) == ' ')
+		{
+			i->setX(newX);
+			i->setY(newY);
+		}
+
+		if (player)
+		{
+			if (level->getContentAt(index) == '*')
+			{
+				player->setPlayerHasKey(true);
+				level->setContentAt(index, ' ');
+				player->setX(newX);
+				player->setY(newY);
+			}
+			else if (level->getContentAt(index) == 'D' && player->getPlayerHasKey())
+			{
+				player->setPlayerHasKey(false);
+				level->setContentAt(index, ' ');
+				player->setX(newX);
+				player->setY(newY);
+			}
+			else if (level->getContentAt(index) == 'X')
+			{
+				level->setContentAt(index, ' ');
+				player->setX(newX);
+				player->setY(newY);
+				gameOver = true;
+				return;
+			}
+			else if (level->getItemAt(index))
+			{
+				Object* item = level->getItemAt(index);
+				if (item->IsWalkable())
+				{
+					player->setX(newX);
+					player->setY(newY);
+				}
+				item->InteractWith(player);
+				if (item->IsPickable())
+				{
+					level->clearItemAt(index);
+				}
+			}
+		}
 	}
-	case Object::Direction::Bot:
-	{
-		newPlayerY++;
-		if (player->getTeleported())
-			player->changeTeleportState();
-		break;
-	}
-	case Object::Direction::Left:
-	{
-		newPlayerX--;
-		if (player->getTeleported())
-			player->changeTeleportState();
-		break;
-	}
-	case Object::Direction::Right:
-	{
-		newPlayerX++;
-		if (player->getTeleported())
-			player->changeTeleportState();
-		break;
-	}
+
 	/*case KEY_UP:
 	{
 		player->setHasAttacked(true);
@@ -104,48 +190,4 @@ void Game::UpdateGame(Object::Direction input)
 	default:
 		break;
 	}*/
-
-	int index = level->GetIndexFromCoordinates(newPlayerX, newPlayerY);
-
-	if (level->getContentAt(index) == ' ')
-	{
-		player->setX(newPlayerX);
-		player->setY(newPlayerY);
-	}
-	else if (level->getContentAt(index) == '*')
-	{
-		player->setPlayerHasKey(true);
-		level->setContentAt(index, ' ');
-		player->setX(newPlayerX);
-		player->setY(newPlayerY);
-	}
-	else if (level->getContentAt(index) == 'D' && player->getPlayerHasKey())
-	{
-		player->setPlayerHasKey(false);
-		level->setContentAt(index, ' ');
-		player->setX(newPlayerX);
-		player->setY(newPlayerY);
-	}
-	else if (level->getContentAt(index) == 'X')
-	{
-		level->setContentAt(index, ' ');
-		player->setX(newPlayerX);
-		player->setY(newPlayerY);
-		gameOver = true;
-		return;
-	}
-	else if (level->getItemAt(index))
-	{
-		Object* item = level->getItemAt(index);
-		if (item->IsWalkable())
-		{
-			player->setX(newPlayerX);
-			player->setY(newPlayerY);
-		}
-		item->InteractWith( player );
-		if (item->IsPickable())
-		{
-			level->clearItemAt(index);
-		}
-	}
 }
