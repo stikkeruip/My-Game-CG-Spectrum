@@ -15,7 +15,6 @@ class Weapon;
 class Player : public Entity
 {
 	private:
-		Level* currentRoom;
 		Direction::Direction direction;
 		Direction::Direction attackDir;
 		
@@ -31,8 +30,7 @@ class Player : public Entity
 		Player();
 	
 		//setters
-		void setCurrentRoom(Level* _currentRoom) { currentRoom = _currentRoom; }
-
+		
 		void setEnteredPassway(bool x);
 
 		void setWeapon(Weapon* x);
@@ -47,9 +45,10 @@ class Player : public Entity
 
 		void changeTeleportState() { teleported = !teleported; }
 
+		void Update();
+
 
 		//getters
-		Level* getCurrentRoom() { return currentRoom; }
 
 		Direction::Direction getDirection() { return direction; }
 
@@ -68,4 +67,10 @@ class Player : public Entity
 		int hit();
 
 		bool getTeleported() { return teleported; }
+
+		Direction::Direction Input();
+
+		int getch_noblock();
+
+		bool hasReachedEnd() { return reachedEnd; }
 };

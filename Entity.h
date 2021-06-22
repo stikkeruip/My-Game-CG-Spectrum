@@ -13,7 +13,7 @@ protected:
 	bool dead = false;
 
 public:
-	static vector<Entity*> entityList;
+	
 
 	Entity(int _x, int _y) : Object(_x, _y)
 	{
@@ -24,5 +24,8 @@ public:
 	virtual void setHealth(int x) { health -= x; }
 	virtual void isDead();
 	virtual void GetPositionAtDirection(Direction::Direction direction, int& x, int& y);
+	virtual void Update() {}
+	virtual Direction::Direction Input() { return Direction::Direction::None; }
+	
 };
 

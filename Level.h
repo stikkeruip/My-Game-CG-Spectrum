@@ -34,6 +34,7 @@ class Level
 		Passway* passwayAtDirections[(int)Direction::Direction::Number];
 
 		static vector<Object*> itemTargets;
+		vector<Entity*> entityList;
 	public:
 
 		Level(string levelName);
@@ -51,6 +52,8 @@ class Level
 
 		void clearItemAt(int index);
 
+		void setEntityList(Entity* e) { entityList.push_back(e); }
+
 
 		//getters
 		Level* getLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction]; }
@@ -65,6 +68,7 @@ class Level
 		Object* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
 		Entity* getEntityAt(int index) { return levelEntities[index]; }
 		Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
+		vector<Entity*> getEntityList() { return entityList; }
 
 		//other functions
 		bool hasLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
@@ -74,6 +78,17 @@ class Level
 		char* loadLevel(string levelName);
 
 		void loadItems(string levelName);
+
+		void removeEntity(Entity* e)
+		{
+			for (int i = 0; i < entityList.size(); i++)
+			{
+				if (entityList[i] == e)
+				{
+					entityList.erase(entityList.begin() + i);
+				}
+			}
+		}
 };
 
 #endif

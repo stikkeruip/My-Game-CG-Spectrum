@@ -21,8 +21,6 @@ using namespace nlohmann;
 
 void levelSetup(vector<Level*>& allLevels);
 void gameLoop(Game* game, Player* player, Level* levelPtr);
-int getch_noblock();
-Direction::Direction getInput();
 
 int main()
 {
@@ -32,13 +30,13 @@ int main()
 	vector<Level*> allLevels;
 	Level* levelPtr = nullptr;
 	Player* player = new Player;
-	Entity::entityList.push_back(player);
 
 	levelSetup(allLevels);
 	Level::setTargets();
 
 	levelPtr = allLevels[0];
 	player->setCurrentRoom(levelPtr);
+	levelPtr->setEntityList(player);
 
 	Game* game = new Game(player, levelPtr);
 
@@ -47,19 +45,21 @@ int main()
 
 void gameLoop(Game* game, Player* player, Level* levelPtr)
 {
-	while (!game->getGameOver())
+	while (!player->hasReachedEnd())
 	{
 		system("cls");
 		if (player->getEnteredPassway())
 		{
+			//levelPtr->removeEntity(player);
 			levelPtr = player->getCurrentRoom()->getLevelAtDirection(player->getDirection());
 			player->setCurrentRoom(levelPtr);
 			player->setEnteredPassway(false);
 			game->SetCurrentLevel(levelPtr);
+			levelPtr->setEntityList(player);
 		}
 
 		levelPtr->DrawLevel(player->getX(), player->getY());
-		game->UpdateGame(getInput());
+		game->UpdateGame();
 	}
 	system("cls");
 	levelPtr->DrawLevel(player->getX(), player->getY());
@@ -81,44 +81,5 @@ void levelSetup(vector<Level*>& allLevels)
 		{
 			allLevels[level["index"]]->setLevelAtDirection(allLevels[connection["target"]], static_cast<Direction::Direction>(connection["direction"]));
 		}
-	}
-}
-
-int getch_noblock()
-{
-	if (_kbhit())
-		return _getch();
-	else
-		return -1;
-}
-
-Direction::Direction getInput()
-{
-	char input = getch_noblock();
-
-	switch (input)
-	{
-	case 'w':
-	case 'W':
-	{
-		return Direction::Direction::Top;
-	}
-	case 's':
-	case 'S':
-	{
-		return Direction::Direction::Bot;
-	}
-	case 'a':
-	case 'A':
-	{
-		return Direction::Direction::Left;
-	}
-	case 'd':
-	case 'D':
-	{
-		return Direction::Direction::Right;
-	}
-	default:
-		return Direction::Direction::None;
 	}
 }

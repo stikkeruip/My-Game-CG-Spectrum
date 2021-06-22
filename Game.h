@@ -19,7 +19,7 @@ public:
 		gameOver = false;
 	}
 
-	void UpdateGame(Direction::Direction input);
+	void UpdateGame();
 	void SetCurrentLevel(Level* _level){ level = _level; }
 	bool getGameOver() {return gameOver;}
 	Direction::Direction entityMovement();
