@@ -7,7 +7,7 @@ class Object
 {
 protected:
 	
-	Level* currentRoom;
+	static Level* currentRoom;
 	char displayCharacter;
 	bool walkable;
 	bool pickable;
@@ -16,7 +16,7 @@ protected:
 	int id = 0;
 
 public:
-	
+
 	Object(char c) : displayCharacter(c)
 	{ 
 		currentRoom = 0;
@@ -42,13 +42,13 @@ public:
 	virtual int getX() { return x; }
 	virtual int getY() { return y; }
 	virtual char GetDisplayCharacter() { return displayCharacter; }
-	Level* getCurrentRoom() { return currentRoom; }
+	static Level* getCurrentRoom();
 
 	//setters
 	virtual void setID(int x) { id = x; }
 	virtual void setDisplayCharacter(char d) { displayCharacter = d; }
 	virtual void setX(int x) { this->x = x; }
 	virtual void setY(int y) { this->y = y; }
-	void setCurrentRoom(Level* _currentRoom) { currentRoom = _currentRoom; }
+	static void setCurrentRoom(Level* _currentRoom);
 };
 

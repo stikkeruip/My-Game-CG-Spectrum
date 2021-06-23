@@ -32,7 +32,7 @@ void BasicEnemy::Update()
 	Direction::Direction input = Input();
 	newX = x;
 	newY = y;
-	int index = currentRoom->GetIndexFromCoordinates(newX, newY);
+	
 	attackX = x;
 	attackY = y;
 
@@ -59,6 +59,8 @@ void BasicEnemy::Update()
 		break;
 	}
 	}
+
+	int index = currentRoom->GetIndexFromCoordinates(newX, newY);
 
 	if (currentRoom->getContentAt(index) == ' ')
 	{

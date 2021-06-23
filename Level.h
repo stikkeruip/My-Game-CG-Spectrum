@@ -58,7 +58,7 @@ class Level
 		//getters
 		Level* getLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction]; }
 
-		int GetIndexFromCoordinates(int x, int y) { return x + y * width; };
+		int GetIndexFromCoordinates(int x, int y) { return x + y * width; }
 
 		int getWidth() { return width; };
 

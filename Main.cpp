@@ -50,9 +50,9 @@ void gameLoop(Game* game, Player* player, Level* levelPtr)
 		system("cls");
 		if (player->getEnteredPassway())
 		{
-			//levelPtr->removeEntity(player);
-			levelPtr = player->getCurrentRoom()->getLevelAtDirection(player->getDirection());
-			player->setCurrentRoom(levelPtr);
+			levelPtr->removeEntity(player);
+			levelPtr = Object::getCurrentRoom()->getLevelAtDirection(player->getDirection());
+			Object::setCurrentRoom(levelPtr);
 			player->setEnteredPassway(false);
 			game->SetCurrentLevel(levelPtr);
 			levelPtr->setEntityList(player);

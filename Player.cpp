@@ -96,7 +96,6 @@ void Player::Update()
 	Direction::Direction input = Input();
 	newX = x;
 	newY = y;
-	int index = currentRoom->GetIndexFromCoordinates(newX, newY);
 	attackX = x;
 	attackY = y;
 
@@ -105,35 +104,32 @@ void Player::Update()
 	case Direction::Direction::Top:
 	{
 		newY--;
-		if (getTeleported())
-			changeTeleportState();
 		break;
 	}
 	case Direction::Direction::Bot:
 	{
 		newY++;
-		if (getTeleported())
-			changeTeleportState();
 		break;
 	}
 	case Direction::Direction::Left:
 	{
 		newX--;
-		if (getTeleported())
-			changeTeleportState();
 		break;
 	}
 	case Direction::Direction::Right:
 	{
 		newX++;
-		if (getTeleported())
-			changeTeleportState();
 		break;
 	}
 	}
 
+	int index = currentRoom->GetIndexFromCoordinates(newX, newY);
+
 	if (currentRoom->getContentAt(index) == ' ')
 	{
+		if (teleported)
+			changeTeleportState();
+
 		setX(newX);
 		setY(newY);
 	}
@@ -174,4 +170,5 @@ void Player::Update()
 			currentRoom->clearItemAt(index);
 		}
 	}
+	Sleep(6);
 }
