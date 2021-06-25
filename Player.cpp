@@ -1,7 +1,7 @@
 #include <conio.h>
 #include <iostream>
 #include "Player.h"
-#include "Level.h"
+#include "level.h"
 #include "Weapon.h"
 
 Player::Player() : Entity(11, 12)
@@ -55,6 +55,22 @@ int Player::getch_noblock()
 		return -1;
 }
 
+void Player::strike(Direction::Direction direction)
+{
+	int attackX = x;
+	int attackY = y;
+
+	setHasAttacked(true);
+	setAttackDir(direction);
+	attack(direction);
+	GetPositionAtDirection(direction, attackX, attackY);
+	if (currentRoom->getEntityAt(attackX, attackY))
+	{
+		currentRoom->getEntityAt(attackX, attackY)->setHealth(hit());
+		currentRoom->getEntityAt(attackX, attackY)->setDead();
+	}
+}
+
 Direction::Direction Player::Input()
 {
 	char input = getch_noblock();
@@ -81,23 +97,40 @@ Direction::Direction Player::Input()
 	{
 		return Direction::Direction::Right;
 	}
-	default:
+
+	case KEY_UP:
+	{
+		strike(Direction::Direction::Top);
 		return Direction::Direction::None;
 	}
+	case KEY_DOWN:
+	{
+		strike(Direction::Direction::Bot);
+		return Direction::Direction::None;
+	}
+	case KEY_LEFT:
+	{
+		strike(Direction::Direction::Left);
+		return Direction::Direction::None;
+	}
+	case KEY_RIGHT:
+	{
+		strike(Direction::Direction::Right);
+		return Direction::Direction::None;
+	}
+	default:
+		return Direction::Direction::None;
+}
 }
 
 void Player::Update()
 {
 	int newX;
 	int newY;
-	int attackX;
-	int attackY;
 
 	Direction::Direction input = Input();
 	newX = x;
 	newY = y;
-	attackX = x;
-	attackY = y;
 
 	switch (input)
 	{
@@ -123,9 +156,10 @@ void Player::Update()
 	}
 	}
 
-	int index = currentRoom->GetIndexFromCoordinates(newX, newY);
+	int newindex = currentRoom->GetIndexFromCoordinates(newX, newY);
+	int oldindex = currentRoom->GetIndexFromCoordinates(x, y);
 
-	if (currentRoom->getContentAt(index) == ' ')
+	if (currentRoom->getContentAt(newindex) == ' ' && !currentRoom->getEntityAt(newindex))
 	{
 		if (teleported)
 			changeTeleportState();
@@ -133,31 +167,31 @@ void Player::Update()
 		setX(newX);
 		setY(newY);
 	}
-	else if (currentRoom->getContentAt(index) == '*')
+	else if (currentRoom->getContentAt(newindex) == '*')
 	{
 		setPlayerHasKey(true);
-		currentRoom->setContentAt(index, ' ');
+		currentRoom->setContentAt(newindex, ' ');
 		setX(newX);
 		setY(newY);
 	}
-	else if (currentRoom->getContentAt(index) == 'D' && getPlayerHasKey())
+	else if (currentRoom->getContentAt(newindex) == 'D' && getPlayerHasKey())
 	{
 		setPlayerHasKey(false);
-		currentRoom->setContentAt(index, ' ');
+		currentRoom->setContentAt(newindex, ' ');
 		setX(newX);
 		setY(newY);
 	}
-	else if (currentRoom->getContentAt(index) == 'X')
+	else if (currentRoom->getContentAt(newindex) == 'X')
 	{
-		currentRoom->setContentAt(index, ' ');
+		currentRoom->setContentAt(newindex, ' ');
 		setX(newX);
 		setY(newY);
 		reachedEnd = true;
 		return;
 	}
-	else if (currentRoom->getItemAt(index))
+	else if (currentRoom->getItemAt(newindex))
 	{
-		Object* item = currentRoom->getItemAt(index);
+		Object* item = currentRoom->getItemAt(newindex);
 		if (item->IsWalkable())
 		{
 			setX(newX);
@@ -167,8 +201,7 @@ void Player::Update()
 		item->InteractWith(this);
 		if (item->IsPickable())
 		{
-			currentRoom->clearItemAt(index);
+			currentRoom->clearItemAt(newindex);
 		}
 	}
-	Sleep(6);
 }

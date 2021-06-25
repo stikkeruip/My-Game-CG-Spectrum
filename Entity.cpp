@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-void Entity::isDead()
+void Entity::setDead()
 {
 	if (health <= 0)
 	{

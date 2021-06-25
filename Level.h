@@ -23,72 +23,74 @@ constexpr int kLevelHeight = 26;
 
 class Level
 {
-	private:
+private:
 
-		int width;
-		int height;
-		string levelName;
+	int width;
+	int height;
+	string levelName;
 
-		void InitObjects();
-		Level* levelAtDirections[(int)Direction::Direction::Number];
-		Passway* passwayAtDirections[(int)Direction::Direction::Number];
+	void InitObjects();
+	Level* levelAtDirections[(int)Direction::Direction::Number];
+	Passway* passwayAtDirections[(int)Direction::Direction::Number];
 
-		static vector<Object*> itemTargets;
-		vector<Entity*> entityList;
-	public:
+	static vector<Object*> itemTargets;
+	vector<Entity*> entityList;
+public:
 
-		Level(string levelName);
+	Level(string levelName);
 
-		char* level;
-		Entity* levelEntities[kLevelWidth * kLevelHeight];
-		Object* Objects[kLevelWidth * kLevelHeight]; //Objects is an array of pointers (each of them points to a Object)
-		
-		//setters
-		void setLevelAtDirection(Level* level, Direction::Direction direction);
+	char* level;
+	Entity* levelEntities[kLevelWidth * kLevelHeight];
+	Object* Objects[kLevelWidth * kLevelHeight]; //Objects is an array of pointers (each of them points to a Object)
 
-		void setContentAt(int index, char content) { level[index] = content; }
+	//setters
+	void setLevelAtDirection(Level* level, Direction::Direction direction);
 
-		static void setTargets();
+	void setContentAt(int index, char content) { level[index] = content; }
 
-		void clearItemAt(int index);
+	static void setTargets();
 
-		void setEntityList(Entity* e) { entityList.push_back(e); }
+	void clearItemAt(int index);
+
+	void setEntityList(Entity* e) { entityList.push_back(e); }
+
+	void setLevelEntities(Entity* e) { levelEntities[GetIndexFromCoordinates(e->getX(), e->getY())] = e; }
 
 
-		//getters
-		Level* getLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction]; }
+	//getters
+	Level* getLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction]; }
 
-		int GetIndexFromCoordinates(int x, int y) { return x + y * width; }
+	int GetIndexFromCoordinates(int x, int y) { return x + y * width; }
 
-		int getWidth() { return width; };
+	int getWidth() { return width; };
 
-		char getContentAt (int index) { return level[index]; }
+	char getContentAt (int index) { return level[index]; }
 
-		Object* getItemAt (int index) { return Objects[index]; }
-		Object* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
-		Entity* getEntityAt(int index) { return levelEntities[index]; }
-		Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
-		vector<Entity*> getEntityList() { return entityList; }
+	Object* getItemAt (int index) { return Objects[index]; }
+	Object* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
+	Entity* getEntityAt(int index) { return levelEntities[index]; }
+	Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
+	vector<Entity*> getEntityList() { return entityList; }
 
-		//other functions
-		bool hasLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
+	//other functions
+	bool hasLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
 
-		void DrawLevel(int playerX, int playerY);
+	void DrawLevel(int playerX, int playerY);
 
-		char* loadLevel(string levelName);
+	char* loadLevel(string levelName);
 
-		void loadItems(string levelName);
+	void loadItems(string levelName);
 
-		void removeEntity(Entity* e)
+	void removeEntity(Entity* e)
+	{
+		for (int i = 0; i < entityList.size(); i++)
 		{
-			for (int i = 0; i < entityList.size(); i++)
+			if (entityList[i] == e)
 			{
-				if (entityList[i] == e)
-				{
-					entityList.erase(entityList.begin() + i);
-				}
+				entityList.erase(entityList.begin() + i);
 			}
 		}
+	}
 };
 
 #endif

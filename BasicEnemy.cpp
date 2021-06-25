@@ -1,5 +1,6 @@
 #include "BasicEnemy.h"
 #include "Level.h"
+#include <iostream>
 
 Direction::Direction BasicEnemy::Input()
 {
@@ -28,43 +29,53 @@ void BasicEnemy::Update()
 	int newY;
 	int attackX;
 	int attackY;
+	int delta = 30;
 
-	Direction::Direction input = Input();
-	newX = x;
-	newY = y;
-	
-	attackX = x;
-	attackY = y;
+	mUpdateTimer += delta;
+	if (mUpdateTimer > mUpdateInterval)
+	{
+		Direction::Direction input = Input();
+		newX = x;
+		newY = y;
 
-	switch (input)
-	{
-	case Direction::Direction::Top:
-	{
-		newY--;
-		break;
-	}
-	case Direction::Direction::Bot:
-	{
-		newY++;
-		break;
-	}
-	case Direction::Direction::Left:
-	{
-		newX--;
-		break;
-	}
-	case Direction::Direction::Right:
-	{
-		newX++;
-		break;
-	}
-	}
+		attackX = x;
+		attackY = y;
 
-	int index = currentRoom->GetIndexFromCoordinates(newX, newY);
+		switch (input)
+		{
+		case Direction::Direction::Top:
+		{
+			newY--;
+			break;
+		}
+		case Direction::Direction::Bot:
+		{
+			newY++;
+			break;
+		}
+		case Direction::Direction::Left:
+		{
+			newX--;
+			break;
+		}
+		case Direction::Direction::Right:
+		{
+			newX++;
+			break;
+		}
+		}
 
-	if (currentRoom->getContentAt(index) == ' ')
-	{
-		setX(newX);
-		setY(newY);
+		int newindex = currentRoom->GetIndexFromCoordinates(newX, newY);
+		int oldindex = currentRoom->GetIndexFromCoordinates(x, y);
+
+		if (currentRoom->getContentAt(newindex) == ' ' && !currentRoom->getEntityAt(newindex))
+		{
+			currentRoom->levelEntities[newindex] = currentRoom->levelEntities[oldindex];
+			currentRoom->levelEntities[oldindex] = nullptr;
+			setX(newX);
+			setY(newY);
+		}
+		mUpdateTimer = 0;
 	}
+	std::cout << x << " " << y;
 }

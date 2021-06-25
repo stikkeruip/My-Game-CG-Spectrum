@@ -47,6 +47,8 @@ class Player : public Entity
 
 		void Update();
 
+		void strike(Direction::Direction direction);
+
 
 		//getters
 

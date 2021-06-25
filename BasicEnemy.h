@@ -10,6 +10,8 @@ class BasicEnemy : public Entity
 		BasicEnemy(int _x, int _y) :Entity(_x, _y)
 		{
 			displayCharacter = 'E';
+			mUpdateTimer = 0;
+			mUpdateInterval = 120;
 		}
 
 		Direction::Direction Input();

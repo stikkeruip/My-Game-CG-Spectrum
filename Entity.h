@@ -11,6 +11,8 @@ class Entity : public Object
 protected:
 	int health;
 	bool dead = false;
+	int mUpdateTimer;
+	int mUpdateInterval;
 
 public:
 	
@@ -22,7 +24,8 @@ public:
 	}
 
 	virtual void setHealth(int x) { health -= x; }
-	virtual void isDead();
+	virtual void setDead();
+	virtual bool isDead() { return dead; }
 	virtual void GetPositionAtDirection(Direction::Direction direction, int& x, int& y);
 	virtual void Update() {}
 	virtual Direction::Direction Input() { return Direction::Direction::None; }
