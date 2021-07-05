@@ -57,6 +57,8 @@ int Player::getch_noblock()
 
 void Player::strike(Direction::Direction direction)
 {
+	return;
+
 	int attackX = x;
 	int attackY = y;
 

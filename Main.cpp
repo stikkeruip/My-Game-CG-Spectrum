@@ -36,7 +36,7 @@ int main()
 
 	levelPtr = allLevels[0];
 	player->setCurrentRoom(levelPtr);
-	levelPtr->setEntityList(player);
+	levelPtr->setLevelEntities(player);
 
 	Game* game = new Game(player, levelPtr);
 
@@ -55,7 +55,7 @@ void gameLoop(Game* game, Player* player, Level* levelPtr)
 			Object::setCurrentRoom(levelPtr);
 			player->setEnteredPassway(false);
 			game->SetCurrentLevel(levelPtr);
-			levelPtr->setEntityList(player);
+			levelPtr->setLevelEntities(player);
 		}
 
 		levelPtr->DrawLevel(player->getX(), player->getY());

@@ -34,13 +34,12 @@ private:
 	Passway* passwayAtDirections[(int)Direction::Direction::Number];
 
 	static vector<Object*> itemTargets;
-	vector<Entity*> entityList;
 public:
 
 	Level(string levelName);
 
 	char* level;
-	Entity* levelEntities[kLevelWidth * kLevelHeight];
+	vector<Entity*> levelEntities;
 	Object* Objects[kLevelWidth * kLevelHeight]; //Objects is an array of pointers (each of them points to a Object)
 
 	//setters
@@ -51,8 +50,6 @@ public:
 	static void setTargets();
 
 	void clearItemAt(int index);
-
-	void setEntityList(Entity* e) { entityList.push_back(e); }
 
 	void setLevelEntities(Entity* e) { levelEntities[GetIndexFromCoordinates(e->getX(), e->getY())] = e; }
 
@@ -70,7 +67,7 @@ public:
 	Object* getItemAt (int x, int y) { int index = GetIndexFromCoordinates(x, y); return getItemAt(index); }
 	Entity* getEntityAt(int index) { return levelEntities[index]; }
 	Entity* getEntityAt(int x, int y) { int index = GetIndexFromCoordinates(x, y); return getEntityAt(index); }
-	vector<Entity*> getEntityList() { return entityList; }
+	vector<Entity*> getLevelEntities() { return levelEntities; }
 
 	//other functions
 	bool hasLevelAtDirection(Direction::Direction direction) { return levelAtDirections[(int)direction] != nullptr; }
@@ -83,11 +80,11 @@ public:
 
 	void removeEntity(Entity* e)
 	{
-		for (int i = 0; i < entityList.size(); i++)
+		for (int i = 0; i < levelEntities.size(); i++)
 		{
-			if (entityList[i] == e)
+			if (levelEntities[i] == e)
 			{
-				entityList.erase(entityList.begin() + i);
+				levelEntities.erase(levelEntities.begin() + i);
 			}
 		}
 	}

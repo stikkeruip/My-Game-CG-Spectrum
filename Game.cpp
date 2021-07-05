@@ -33,9 +33,9 @@ Direction::Direction Game::entityMovement()
 void Game::UpdateGame()
 {
 	
-	for (Entity* i : level->getEntityList())
+	for (Entity* i: level->getLevelEntities())
 	{
-		if (!i->isDead())
+		if (i && !i->isDead())
 		{
 			i->Update();
 			Sleep(30);
